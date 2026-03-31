@@ -116,11 +116,14 @@
             width: 300px;
             height: 200px;
             border-radius: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
+            overflow: hidden;
             flex-shrink: 0;
+        }
+
+        .city-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .section-title {
@@ -153,11 +156,14 @@
 
         .card-icon {
             height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .card-body { padding: 1.2rem; }
@@ -208,7 +214,19 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
-        .overview-card .emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+        .overview-card .emoji {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-card .emoji img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .overview-card h3 { font-size: 1rem; margin-bottom: 0.2rem; }
         .overview-card .jp { font-size: 0.8rem; color: #999; }
         .overview-card .count { font-size: 0.75rem; color: #e94560; margin-top: 0.5rem; }
@@ -316,7 +334,8 @@ const i18n = {
 
 const cities = [
     {
-        name: { en: "Tokyo", zh: "东京" }, japanese: "東京", emoji: "\ud83c\udff9",
+        name: { en: "Tokyo", zh: "东京" }, japanese: "東京",
+        image: "images/cities/tokyo.jpg",
         region: { en: "Kanto", zh: "关东" },
         population: "14M",
         bestSeason: { en: "Spring / Autumn", zh: "春季 / 秋季" },
@@ -326,16 +345,17 @@ const cities = [
         },
         color: "#e94560",
         attractions: [
-            { name: { en: "Senso-ji Temple", zh: "浅草寺" }, jp: "浅草寺", desc: { en: "Tokyo's oldest temple, located in Asakusa, features the iconic Kaminarimon (Thunder Gate) and a vibrant shopping street leading to the main hall.", zh: "东京最古老的寺庙，位于浅草，以标志性的雷门和通往正殿的繁华商业街闻名。" }, emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["history", "spiritual"] },
-            { name: { en: "Shibuya Crossing", zh: "涩谷十字路口" }, jp: "渋谷スクランブル交差点", desc: { en: "The world's busiest pedestrian crossing, surrounded by neon-lit buildings. Up to 3,000 people cross at each light change.", zh: "世界上最繁忙的人行横道，周围是霓虹灯闪烁的建筑。每次信号灯变换时多达3000人同时过马路。" }, emoji: "\ud83d\udeb6", bg: "#e3f2fd", tags: ["modern"] },
-            { name: { en: "Meiji Shrine", zh: "明治神宫" }, jp: "明治神宮", desc: { en: "A tranquil Shinto shrine set within a 170-acre forest in the heart of the city, dedicated to Emperor Meiji and Empress Shoken.", zh: "坐落在城市中心170英亩森林中的宁静神社，供奉明治天皇和昭宪皇后。" }, emoji: "\u26e9\ufe0f", bg: "#e8f5e9", tags: ["spiritual", "nature"] },
-            { name: { en: "Tokyo Skytree", zh: "东京晴空塔" }, jp: "東京スカイツリー", desc: { en: "At 634 meters, it's the tallest structure in Japan, offering panoramic views of the entire Tokyo metropolitan area.", zh: "高634米，是日本最高的建筑，可以俯瞰整个东京都市圈的全景。" }, emoji: "\ud83d\uddfc", bg: "#ede7f6", tags: ["modern"] },
-            { name: { en: "Tsukiji Outer Market", zh: "筑地场外市场" }, jp: "築地場外市場", desc: { en: "A bustling market offering the freshest sushi, seafood, and Japanese street food. A paradise for food lovers.", zh: "繁忙的市场，提供最新鲜的寿司、海鲜和日本街头美食。美食爱好者的天堂。" }, emoji: "\ud83c\udf63", bg: "#fce4ec", tags: ["food"] },
-            { name: { en: "Akihabara", zh: "秋叶原" }, jp: "秋葉原", desc: { en: "The epicenter of anime, manga, and electronics culture. Packed with shops, arcades, and maid cafes.", zh: "动漫、漫画和电子文化的中心。到处都是商店、游戏厅和女仆咖啡馆。" }, emoji: "\ud83c\udfae", bg: "#e8eaf6", tags: ["modern"] },
+            { name: { en: "Senso-ji Temple", zh: "浅草寺" }, jp: "浅草寺", desc: { en: "Tokyo's oldest temple, located in Asakusa, features the iconic Kaminarimon (Thunder Gate) and a vibrant shopping street leading to the main hall.", zh: "东京最古老的寺庙，位于浅草，以标志性的雷门和通往正殿的繁华商业街闻名。" }, image: "images/attractions/traditional-shopfront.jpg", bg: "#fff3e0", tags: ["history", "spiritual"] },
+            { name: { en: "Shibuya Crossing", zh: "涩谷十字路口" }, jp: "渋谷スクランブル交差点", desc: { en: "The world's busiest pedestrian crossing, surrounded by neon-lit buildings. Up to 3,000 people cross at each light change.", zh: "世界上最繁忙的人行横道，周围是霓虹灯闪烁的建筑。每次信号灯变换时多达3000人同时过马路。" }, image: "images/attractions/shibuya-crossing.jpg", bg: "#e3f2fd", tags: ["modern"] },
+            { name: { en: "Meiji Shrine", zh: "明治神宫" }, jp: "明治神宮", desc: { en: "A tranquil Shinto shrine set within a 170-acre forest in the heart of the city, dedicated to Emperor Meiji and Empress Shoken.", zh: "坐落在城市中心170英亩森林中的宁静神社，供奉明治天皇和昭宪皇后。" }, image: "images/attractions/torii-forest.jpg", bg: "#e8f5e9", tags: ["spiritual", "nature"] },
+            { name: { en: "Tokyo Skytree", zh: "东京晴空塔" }, jp: "東京スカイツリー", desc: { en: "At 634 meters, it's the tallest structure in Japan, offering panoramic views of the entire Tokyo metropolitan area.", zh: "高634米，是日本最高的建筑，可以俯瞰整个东京都市圈的全景。" }, image: "images/attractions/tokyo-skyline.jpg", bg: "#ede7f6", tags: ["modern"] },
+            { name: { en: "Tsukiji Outer Market", zh: "筑地场外市场" }, jp: "築地場外市場", desc: { en: "A bustling market offering the freshest sushi, seafood, and Japanese street food. A paradise for food lovers.", zh: "繁忙的市场，提供最新鲜的寿司、海鲜和日本街头美食。美食爱好者的天堂。" }, image: "images/attractions/sushi-platter.jpg", bg: "#fce4ec", tags: ["food"] },
+            { name: { en: "Akihabara", zh: "秋叶原" }, jp: "秋葉原", desc: { en: "The epicenter of anime, manga, and electronics culture. Packed with shops, arcades, and maid cafes.", zh: "动漫、漫画和电子文化的中心。到处都是商店、游戏厅和女仆咖啡馆。" }, image: "images/attractions/neon-tokyo.jpg", bg: "#e8eaf6", tags: ["modern"] },
         ]
     },
     {
-        name: { en: "Kyoto", zh: "京都" }, japanese: "京都", emoji: "\u26e9\ufe0f",
+        name: { en: "Kyoto", zh: "京都" }, japanese: "京都",
+        image: "images/cities/kyoto.jpg",
         region: { en: "Kansai", zh: "关西" },
         population: "1.5M",
         bestSeason: { en: "Spring / Autumn", zh: "春季 / 秋季" },
@@ -345,16 +365,17 @@ const cities = [
         },
         color: "#c0392b",
         attractions: [
-            { name: { en: "Fushimi Inari Shrine", zh: "伏见稻荷大社" }, jp: "伏見稲荷大社", desc: { en: "Famous for its thousands of vermillion torii gates that wind through the forested hillside behind the shrine. The full trail takes about 2 hours.", zh: "以数千座朱红色鸟居闻名，蜿蜒穿过神社后方的山林。走完全程约需2小时。" }, emoji: "\u26e9\ufe0f", bg: "#ffebee", tags: ["spiritual"] },
-            { name: { en: "Kinkaku-ji", zh: "金阁寺" }, jp: "金閣寺", desc: { en: "The Golden Pavilion, a Zen Buddhist temple covered in gold leaf, reflecting beautifully over its surrounding pond garden.", zh: "金阁，一座贴满金箔的禅宗寺庙，倒映在周围的池泉庭园中，美不胜收。" }, emoji: "\ud83c\udfef", bg: "#fff8e1", tags: ["history", "spiritual"] },
-            { name: { en: "Arashiyama Bamboo Grove", zh: "岚山竹林" }, jp: "嵐山竹林", desc: { en: "A mesmerizing pathway through towering bamboo stalks that sway and creak in the wind. Most magical in early morning light.", zh: "穿行于高耸竹林间的迷人小径，竹子在风中摇曳作响。清晨时分最为梦幻。" }, emoji: "\ud83c\udf8d", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Gion District", zh: "祇园" }, jp: "祇園", desc: { en: "Kyoto's most famous geisha district, with beautifully preserved wooden machiya townhouses, teahouses, and traditional restaurants.", zh: "京都最著名的艺伎街区，保存完好的木造町屋、茶屋和传统餐厅。" }, emoji: "\ud83c\udfad", bg: "#fce4ec", tags: ["history"] },
-            { name: { en: "Nijo Castle", zh: "二条城" }, jp: "二条城", desc: { en: "A UNESCO World Heritage site featuring stunning gardens, ornate interiors, and famous 'nightingale floors' that chirp when walked upon.", zh: "联合国教科文组织世界遗产，拥有精美的庭园、华丽的内饰，以及走上去会发出鸟鸣声的著名「莺声地板」。" }, emoji: "\ud83c\udff0", bg: "#e3f2fd", tags: ["history"] },
-            { name: { en: "Kiyomizu-dera", zh: "清水寺" }, jp: "清水寺", desc: { en: "A spectacular hilltop temple with a massive wooden stage that offers stunning views of Kyoto, especially during cherry blossom and autumn foliage seasons.", zh: "壮观的山顶寺庙，巨大的木制舞台可以俯瞰京都美景，尤其在樱花季和红叶季。" }, emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["spiritual", "history"] },
+            { name: { en: "Fushimi Inari Shrine", zh: "伏见稻荷大社" }, jp: "伏見稲荷大社", desc: { en: "Famous for its thousands of vermillion torii gates that wind through the forested hillside behind the shrine. The full trail takes about 2 hours.", zh: "以数千座朱红色鸟居闻名，蜿蜒穿过神社后方的山林。走完全程约需2小时。" }, image: "images/attractions/fushimi-inari.jpg", bg: "#ffebee", tags: ["spiritual"] },
+            { name: { en: "Kinkaku-ji", zh: "金阁寺" }, jp: "金閣寺", desc: { en: "The Golden Pavilion, a Zen Buddhist temple covered in gold leaf, reflecting beautifully over its surrounding pond garden.", zh: "金阁，一座贴满金箔的禅宗寺庙，倒映在周围的池泉庭园中，美不胜收。" }, image: "images/attractions/kyoto-pagoda.jpg", bg: "#fff8e1", tags: ["history", "spiritual"] },
+            { name: { en: "Arashiyama Bamboo Grove", zh: "岚山竹林" }, jp: "嵐山竹林", desc: { en: "A mesmerizing pathway through towering bamboo stalks that sway and creak in the wind. Most magical in early morning light.", zh: "穿行于高耸竹林间的迷人小径，竹子在风中摇曳作响。清晨时分最为梦幻。" }, image: "images/attractions/temple-garden.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Gion District", zh: "祇园" }, jp: "祇園", desc: { en: "Kyoto's most famous geisha district, with beautifully preserved wooden machiya townhouses, teahouses, and traditional restaurants.", zh: "京都最著名的艺伎街区，保存完好的木造町屋、茶屋和传统餐厅。" }, image: "images/attractions/lantern-alley.jpg", bg: "#fce4ec", tags: ["history"] },
+            { name: { en: "Nijo Castle", zh: "二条城" }, jp: "二条城", desc: { en: "A UNESCO World Heritage site featuring stunning gardens, ornate interiors, and famous 'nightingale floors' that chirp when walked upon.", zh: "联合国教科文组织世界遗产，拥有精美的庭园、华丽的内饰，以及走上去会发出鸟鸣声的著名「莺声地板」。" }, image: "images/attractions/cherry-blossoms-canal.jpg", bg: "#e3f2fd", tags: ["history"] },
+            { name: { en: "Kiyomizu-dera", zh: "清水寺" }, jp: "清水寺", desc: { en: "A spectacular hilltop temple with a massive wooden stage that offers stunning views of Kyoto, especially during cherry blossom and autumn foliage seasons.", zh: "壮观的山顶寺庙，巨大的木制舞台可以俯瞰京都美景，尤其在樱花季和红叶季。" }, image: "images/attractions/kiyomizudera.jpg", bg: "#fff3e0", tags: ["spiritual", "history"] },
         ]
     },
     {
-        name: { en: "Osaka", zh: "大阪" }, japanese: "大阪", emoji: "\ud83c\udf1f",
+        name: { en: "Osaka", zh: "大阪" }, japanese: "大阪",
+        image: "images/cities/osaka.jpg",
         region: { en: "Kansai", zh: "关西" },
         population: "2.7M",
         bestSeason: { en: "Spring / Autumn", zh: "春季 / 秋季" },
@@ -364,16 +385,17 @@ const cities = [
         },
         color: "#e67e22",
         attractions: [
-            { name: { en: "Osaka Castle", zh: "大阪城" }, jp: "大阪城", desc: { en: "An iconic landmark surrounded by a vast park, originally built in 1583. The castle museum inside covers Osaka's rich history.", zh: "标志性地标，周围环绕着广阔的公园，始建于1583年。城内博物馆展示了大阪丰富的历史。" }, emoji: "\ud83c\udff0", bg: "#fff3e0", tags: ["history"] },
-            { name: { en: "Dotonbori", zh: "道顿堀" }, jp: "道頓堀", desc: { en: "Osaka's most famous entertainment district, known for its dazzling neon signs, the iconic Glico Running Man, and incredible street food.", zh: "大阪最著名的娱乐区，以耀眼的霓虹灯、标志性的格力高跑步人和绝佳的街头美食闻名。" }, emoji: "\ud83c\udf1f", bg: "#e3f2fd", tags: ["food", "modern"] },
-            { name: { en: "Kuromon Market", zh: "黑门市场" }, jp: "黑門市場", desc: { en: "Called 'Osaka's Kitchen,' this 600-meter-long market offers fresh seafood, fruits, street snacks, and local delicacies.", zh: "被称为「大阪的厨房」，这个600米长的市场提供新鲜海鲜、水果、街头小吃和当地美食。" }, emoji: "\ud83e\udd90", bg: "#fce4ec", tags: ["food"] },
-            { name: { en: "Universal Studios Japan", zh: "日本环球影城" }, jp: "ユニバーサルスタジオ", desc: { en: "A world-class theme park featuring Wizarding World of Harry Potter, Nintendo World, and thrilling rides.", zh: "世界级主题乐园，设有哈利波特魔法世界、任天堂世界和刺激的游乐设施。" }, emoji: "\ud83c\udfa2", bg: "#ede7f6", tags: ["modern"] },
-            { name: { en: "Shinsekai", zh: "新世界" }, jp: "新世界", desc: { en: "A retro neighborhood built in 1912, centered around the Tsutenkaku Tower. Famous for kushikatsu (deep-fried skewers) restaurants.", zh: "建于1912年的复古街区，以通天阁为中心。以串炸（炸串）餐厅闻名。" }, emoji: "\ud83c\udff7\ufe0f", bg: "#e8f5e9", tags: ["food", "history"] },
-            { name: { en: "Sumiyoshi Taisha", zh: "住吉大社" }, jp: "住吉大社", desc: { en: "One of Japan's oldest and most prestigious shrines, featuring a unique architectural style that predates Chinese influence.", zh: "日本最古老、最负盛名的神社之一，拥有早于中国影响的独特建筑风格。" }, emoji: "\u26e9\ufe0f", bg: "#fff8e1", tags: ["spiritual", "history"] },
+            { name: { en: "Osaka Castle", zh: "大阪城" }, jp: "大阪城", desc: { en: "An iconic landmark surrounded by a vast park, originally built in 1583. The castle museum inside covers Osaka's rich history.", zh: "标志性地标，周围环绕着广阔的公园，始建于1583年。城内博物馆展示了大阪丰富的历史。" }, image: "images/attractions/fuji-pagoda.jpg", bg: "#fff3e0", tags: ["history"] },
+            { name: { en: "Dotonbori", zh: "道顿堀" }, jp: "道頓堀", desc: { en: "Osaka's most famous entertainment district, known for its dazzling neon signs, the iconic Glico Running Man, and incredible street food.", zh: "大阪最著名的娱乐区，以耀眼的霓虹灯、标志性的格力高跑步人和绝佳的街头美食闻名。" }, image: "images/attractions/neon-street.jpg", bg: "#e3f2fd", tags: ["food", "modern"] },
+            { name: { en: "Kuromon Market", zh: "黑门市场" }, jp: "黑門市場", desc: { en: "Called 'Osaka's Kitchen,' this 600-meter-long market offers fresh seafood, fruits, street snacks, and local delicacies.", zh: "被称为「大阪的厨房」，这个600米长的市场提供新鲜海鲜、水果、街头小吃和当地美食。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fce4ec", tags: ["food"] },
+            { name: { en: "Universal Studios Japan", zh: "日本环球影城" }, jp: "ユニバーサルスタジオ", desc: { en: "A world-class theme park featuring Wizarding World of Harry Potter, Nintendo World, and thrilling rides.", zh: "世界级主题乐园，设有哈利波特魔法世界、任天堂世界和刺激的游乐设施。" }, image: "images/attractions/neon-tokyo.jpg", bg: "#ede7f6", tags: ["modern"] },
+            { name: { en: "Shinsekai", zh: "新世界" }, jp: "新世界", desc: { en: "A retro neighborhood built in 1912, centered around the Tsutenkaku Tower. Famous for kushikatsu (deep-fried skewers) restaurants.", zh: "建于1912年的复古街区，以通天阁为中心。以串炸（炸串）餐厅闻名。" }, image: "images/attractions/osaka-street.jpg", bg: "#e8f5e9", tags: ["food", "history"] },
+            { name: { en: "Sumiyoshi Taisha", zh: "住吉大社" }, jp: "住吉大社", desc: { en: "One of Japan's oldest and most prestigious shrines, featuring a unique architectural style that predates Chinese influence.", zh: "日本最古老、最负盛名的神社之一，拥有早于中国影响的独特建筑风格。" }, image: "images/attractions/torii-forest.jpg", bg: "#fff8e1", tags: ["spiritual", "history"] },
         ]
     },
     {
-        name: { en: "Hiroshima", zh: "广岛" }, japanese: "広島", emoji: "\u2615\ufe0f",
+        name: { en: "Hiroshima", zh: "广岛" }, japanese: "広島",
+        image: "images/cities/hiroshima.jpg",
         region: { en: "Chugoku", zh: "中国地方" },
         population: "1.2M",
         bestSeason: { en: "Spring", zh: "春季" },
@@ -383,16 +405,17 @@ const cities = [
         },
         color: "#27ae60",
         attractions: [
-            { name: { en: "Hiroshima Peace Memorial", zh: "广岛和平纪念碑" }, jp: "原爆ドーム", desc: { en: "The iconic A-Bomb Dome, preserved as it stood after the 1945 bombing. A haunting and powerful UNESCO World Heritage site.", zh: "标志性的原爆圆顶，保留了1945年轰炸后的原貌。令人震撼的联合国教科文组织世界遗产。" }, emoji: "\ud83d\udd4a\ufe0f", bg: "#e8f5e9", tags: ["history"] },
-            { name: { en: "Peace Memorial Museum", zh: "和平纪念资料馆" }, jp: "平和記念資料館", desc: { en: "A deeply moving museum documenting the atomic bombing and its aftermath, with personal artifacts and stories of survivors.", zh: "一座令人深受感动的博物馆，记录了原子弹轰炸及其后果，展示幸存者的个人物品和故事。" }, emoji: "\ud83c\udfdb\ufe0f", bg: "#e3f2fd", tags: ["history"] },
-            { name: { en: "Miyajima Island", zh: "宫岛" }, jp: "宮島", desc: { en: "A sacred island famous for its 'floating' torii gate of Itsukushima Shrine. Home to friendly deer and scenic mountain trails.", zh: "以严岛神社「漂浮」鸟居闻名的神圣岛屿。岛上有友好的鹿和风景优美的山径。" }, emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["spiritual", "nature"] },
-            { name: { en: "Shukkeien Garden", zh: "缩景园" }, jp: "縮景園", desc: { en: "A beautiful historical garden dating to 1620 that miniaturizes famous landscapes, with bridges, tea houses, and koi ponds.", zh: "始建于1620年的美丽历史庭园，以微缩著名景观闻名，设有桥梁、茶室和锦鲤池。" }, emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature", "history"] },
-            { name: { en: "Hiroshima Castle", zh: "广岛城" }, jp: "広島城", desc: { en: "Nicknamed the 'Carp Castle,' this reconstructed fortress houses a museum on Hiroshima's pre-war history.", zh: "绰号「鲤鱼城」，这座重建的城堡内设有展示广岛战前历史的博物馆。" }, emoji: "\ud83c\udff0", bg: "#ede7f6", tags: ["history"] },
-            { name: { en: "Okonomimura", zh: "御好烧村" }, jp: "お好み村", desc: { en: "A multi-floor food hall dedicated to Hiroshima-style okonomiyaki, the savory layered pancake that's the city's signature dish.", zh: "多层美食广场，专门供应广岛风格的御好烧——这座城市的标志性美食。" }, emoji: "\ud83e\udd5e", bg: "#fff8e1", tags: ["food"] },
+            { name: { en: "Hiroshima Peace Memorial", zh: "广岛和平纪念碑" }, jp: "原爆ドーム", desc: { en: "The iconic A-Bomb Dome, preserved as it stood after the 1945 bombing. A haunting and powerful UNESCO World Heritage site.", zh: "标志性的原爆圆顶，保留了1945年轰炸后的原貌。令人震撼的联合国教科文组织世界遗产。" }, image: "images/attractions/kiyomizudera.jpg", bg: "#e8f5e9", tags: ["history"] },
+            { name: { en: "Peace Memorial Museum", zh: "和平纪念资料馆" }, jp: "平和記念資料館", desc: { en: "A deeply moving museum documenting the atomic bombing and its aftermath, with personal artifacts and stories of survivors.", zh: "一座令人深受感动的博物馆，记录了原子弹轰炸及其后果，展示幸存者的个人物品和故事。" }, image: "images/attractions/fuji-pagoda.jpg", bg: "#e3f2fd", tags: ["history"] },
+            { name: { en: "Miyajima Island", zh: "宫岛" }, jp: "宮島", desc: { en: "A sacred island famous for its 'floating' torii gate of Itsukushima Shrine. Home to friendly deer and scenic mountain trails.", zh: "以严岛神社「漂浮」鸟居闻名的神圣岛屿。岛上有友好的鹿和风景优美的山径。" }, image: "images/attractions/torii-water.jpg", bg: "#fff3e0", tags: ["spiritual", "nature"] },
+            { name: { en: "Shukkeien Garden", zh: "缩景园" }, jp: "縮景園", desc: { en: "A beautiful historical garden dating to 1620 that miniaturizes famous landscapes, with bridges, tea houses, and koi ponds.", zh: "始建于1620年的美丽历史庭园，以微缩著名景观闻名，设有桥梁、茶室和锦鲤池。" }, image: "images/attractions/temple-garden.jpg", bg: "#e8f5e9", tags: ["nature", "history"] },
+            { name: { en: "Hiroshima Castle", zh: "广岛城" }, jp: "広島城", desc: { en: "Nicknamed the 'Carp Castle,' this reconstructed fortress houses a museum on Hiroshima's pre-war history.", zh: "绰号「鲤鱼城」，这座重建的城堡内设有展示广岛战前历史的博物馆。" }, image: "images/attractions/fuji-pagoda-sunset.jpg", bg: "#ede7f6", tags: ["history"] },
+            { name: { en: "Okonomimura", zh: "御好烧村" }, jp: "お好み村", desc: { en: "A multi-floor food hall dedicated to Hiroshima-style okonomiyaki, the savory layered pancake that's the city's signature dish.", zh: "多层美食广场，专门供应广岛风格的御好烧——这座城市的标志性美食。" }, image: "images/attractions/ramen.jpg", bg: "#fff8e1", tags: ["food"] },
         ]
     },
     {
-        name: { en: "Nara", zh: "奈良" }, japanese: "奈良", emoji: "\ud83e\udd8c",
+        name: { en: "Nara", zh: "奈良" }, japanese: "奈良",
+        image: "images/cities/nara.jpg",
         region: { en: "Kansai", zh: "关西" },
         population: "0.35M",
         bestSeason: { en: "Spring / Autumn", zh: "春季 / 秋季" },
@@ -402,16 +425,17 @@ const cities = [
         },
         color: "#8e44ad",
         attractions: [
-            { name: { en: "Todai-ji Temple", zh: "东大寺" }, jp: "東大寺", desc: { en: "Home to the Great Buddha (Daibutsu), a 15-meter tall bronze statue housed in one of the largest wooden buildings in the world.", zh: "大佛（奈良大佛）的所在地，一座15米高的青铜佛像，安放在世界上最大的木建筑之一中。" }, emoji: "\ud83d\udfe4", bg: "#fff8e1", tags: ["spiritual", "history"] },
-            { name: { en: "Nara Park", zh: "奈良公园" }, jp: "奈良公園", desc: { en: "A vast park home to over 1,000 wild sika deer, considered divine messengers. You can buy deer crackers to feed them.", zh: "广阔的公园，栖息着1000多只野生梅花鹿，被视为神的使者。可以购买鹿仙贝喂食它们。" }, emoji: "\ud83e\udd8c", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Kasuga Taisha", zh: "春日大社" }, jp: "春日大社", desc: { en: "A stunning Shinto shrine famous for its hundreds of bronze and stone lanterns, set in a primeval forest.", zh: "令人惊叹的神社，以数百盏青铜和石灯笼闻名，坐落在原始森林中。" }, emoji: "\ud83c\udfee", bg: "#ffebee", tags: ["spiritual"] },
-            { name: { en: "Isuien Garden", zh: "依水园" }, jp: "依水園", desc: { en: "An elegant Meiji-era garden with borrowed scenery from Todai-ji and the surrounding mountains.", zh: "优雅的明治时代庭园，借景东大寺和周围山脉。" }, emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Naramachi", zh: "奈良町" }, jp: "ならまち", desc: { en: "A charming old merchant district with narrow lanes, traditional townhouses, craft shops, and cozy cafes.", zh: "迷人的古老商人街区，有狭窄的小巷、传统町屋、手工艺品店和温馨的咖啡馆。" }, emoji: "\ud83c\udfe0", bg: "#fce4ec", tags: ["history"] },
-            { name: { en: "Horyu-ji Temple", zh: "法隆寺" }, jp: "法隆寺", desc: { en: "The world's oldest surviving wooden structures, dating to the 7th century. A UNESCO World Heritage site of immense historical importance.", zh: "世界上现存最古老的木结构建筑，可追溯到7世纪。具有重大历史意义的联合国教科文组织世界遗产。" }, emoji: "\u26e9\ufe0f", bg: "#ede7f6", tags: ["history", "spiritual"] },
+            { name: { en: "Todai-ji Temple", zh: "东大寺" }, jp: "東大寺", desc: { en: "Home to the Great Buddha (Daibutsu), a 15-meter tall bronze statue housed in one of the largest wooden buildings in the world.", zh: "大佛（奈良大佛）的所在地，一座15米高的青铜佛像，安放在世界上最大的木建筑之一中。" }, image: "images/attractions/fushimi-inari.jpg", bg: "#fff8e1", tags: ["spiritual", "history"] },
+            { name: { en: "Nara Park", zh: "奈良公园" }, jp: "奈良公園", desc: { en: "A vast park home to over 1,000 wild sika deer, considered divine messengers. You can buy deer crackers to feed them.", zh: "广阔的公园，栖息着1000多只野生梅花鹿，被视为神的使者。可以购买鹿仙贝喂食它们。" }, image: "images/attractions/torii-forest.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Kasuga Taisha", zh: "春日大社" }, jp: "春日大社", desc: { en: "A stunning Shinto shrine famous for its hundreds of bronze and stone lanterns, set in a primeval forest.", zh: "令人惊叹的神社，以数百盏青铜和石灯笼闻名，坐落在原始森林中。" }, image: "images/attractions/torii-water.jpg", bg: "#ffebee", tags: ["spiritual"] },
+            { name: { en: "Isuien Garden", zh: "依水园" }, jp: "依水園", desc: { en: "An elegant Meiji-era garden with borrowed scenery from Todai-ji and the surrounding mountains.", zh: "优雅的明治时代庭园，借景东大寺和周围山脉。" }, image: "images/attractions/temple-garden.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Naramachi", zh: "奈良町" }, jp: "ならまち", desc: { en: "A charming old merchant district with narrow lanes, traditional townhouses, craft shops, and cozy cafes.", zh: "迷人的古老商人街区，有狭窄的小巷、传统町屋、手工艺品店和温馨的咖啡馆。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fce4ec", tags: ["history"] },
+            { name: { en: "Horyu-ji Temple", zh: "法隆寺" }, jp: "法隆寺", desc: { en: "The world's oldest surviving wooden structures, dating to the 7th century. A UNESCO World Heritage site of immense historical importance.", zh: "世界上现存最古老的木结构建筑，可追溯到7世纪。具有重大历史意义的联合国教科文组织世界遗产。" }, image: "images/attractions/traditional-shopfront.jpg", bg: "#ede7f6", tags: ["history", "spiritual"] },
         ]
     },
     {
-        name: { en: "Sapporo", zh: "札幌" }, japanese: "札幌", emoji: "\u2744\ufe0f",
+        name: { en: "Sapporo", zh: "札幌" }, japanese: "札幌",
+        image: "images/cities/sapporo.jpg",
         region: { en: "Hokkaido", zh: "北海道" },
         population: "2.0M",
         bestSeason: { en: "Winter / Summer", zh: "冬季 / 夏季" },
@@ -421,16 +445,17 @@ const cities = [
         },
         color: "#2980b9",
         attractions: [
-            { name: { en: "Sapporo Snow Festival", zh: "札幌雪祭" }, jp: "さっぽろ雪まつり", desc: { en: "Held every February, this world-famous festival features massive snow and ice sculptures across three venues in the city.", zh: "每年二月举办，这个世界闻名的节日在城市三个会场展示巨大的冰雪雕塑。" }, emoji: "\u2744\ufe0f", bg: "#e3f2fd", tags: ["modern"] },
-            { name: { en: "Odori Park", zh: "大通公园" }, jp: "大通公園", desc: { en: "A 1.5 km green belt through central Sapporo, hosting seasonal events from the Snow Festival to the Autumn Festival and beer gardens.", zh: "贯穿札幌市中心的1.5公里绿化带，举办从雪祭到秋祭和啤酒花园等季节性活动。" }, emoji: "\ud83c\udf33", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Sapporo Beer Museum", zh: "札幌啤酒博物馆" }, jp: "サッポロビール博物館", desc: { en: "Japan's only beer museum, housed in a beautiful red-brick building. Learn the history and enjoy tastings of Sapporo's famous brew.", zh: "日本唯一的啤酒博物馆，坐落在美丽的红砖建筑中。了解历史并品尝札幌著名的啤酒。" }, emoji: "\ud83c\udf7a", bg: "#fff8e1", tags: ["food", "history"] },
-            { name: { en: "Niseko Ski Resort", zh: "二世谷滑雪场" }, jp: "ニセコ", desc: { en: "World-renowned for its incredible powder snow. One of Asia's top ski destinations, about 2 hours from Sapporo.", zh: "以令人难以置信的粉雪享誉世界。亚洲顶级滑雪目的地之一，距札幌约2小时。" }, emoji: "\u26f7\ufe0f", bg: "#e3f2fd", tags: ["nature"] },
-            { name: { en: "Nijo Market", zh: "二条市场" }, jp: "二条市場", desc: { en: "A beloved local market since 1903, famous for ultra-fresh crab, uni (sea urchin), and melon. The seafood bowls are legendary.", zh: "自1903年以来深受喜爱的当地市场，以超新鲜的螃蟹、海胆和哈密瓜闻名。海鲜盖饭堪称传奇。" }, emoji: "\ud83e\udd80", bg: "#ffebee", tags: ["food"] },
-            { name: { en: "Mount Moiwa", zh: "藻岩山" }, jp: "藻岩山", desc: { en: "A scenic mountain offering one of Japan's top three night views. Reach the summit via ropeway and mini cable car.", zh: "风景优美的山峰，提供日本三大夜景之一。可乘坐缆车和迷你索道到达山顶。" }, emoji: "\ud83c\udfd4\ufe0f", bg: "#ede7f6", tags: ["nature"] },
+            { name: { en: "Sapporo Snow Festival", zh: "札幌雪祭" }, jp: "さっぽろ雪まつり", desc: { en: "Held every February, this world-famous festival features massive snow and ice sculptures across three venues in the city.", zh: "每年二月举办，这个世界闻名的节日在城市三个会场展示巨大的冰雪雕塑。" }, image: "images/attractions/skiing.jpg", bg: "#e3f2fd", tags: ["modern"] },
+            { name: { en: "Odori Park", zh: "大通公园" }, jp: "大通公園", desc: { en: "A 1.5 km green belt through central Sapporo, hosting seasonal events from the Snow Festival to the Autumn Festival and beer gardens.", zh: "贯穿札幌市中心的1.5公里绿化带，举办从雪祭到秋祭和啤酒花园等季节性活动。" }, image: "images/attractions/fuji-cherry.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Sapporo Beer Museum", zh: "札幌啤酒博物馆" }, jp: "サッポロビール博物館", desc: { en: "Japan's only beer museum, housed in a beautiful red-brick building. Learn the history and enjoy tastings of Sapporo's famous brew.", zh: "日本唯一的啤酒博物馆，坐落在美丽的红砖建筑中。了解历史并品尝札幌著名的啤酒。" }, image: "images/attractions/beer.jpg", bg: "#fff8e1", tags: ["food", "history"] },
+            { name: { en: "Niseko Ski Resort", zh: "二世谷滑雪场" }, jp: "ニセコ", desc: { en: "World-renowned for its incredible powder snow. One of Asia's top ski destinations, about 2 hours from Sapporo.", zh: "以令人难以置信的粉雪享誉世界。亚洲顶级滑雪目的地之一，距札幌约2小时。" }, image: "images/attractions/skiing.jpg", bg: "#e3f2fd", tags: ["nature"] },
+            { name: { en: "Nijo Market", zh: "二条市场" }, jp: "二条市場", desc: { en: "A beloved local market since 1903, famous for ultra-fresh crab, uni (sea urchin), and melon. The seafood bowls are legendary.", zh: "自1903年以来深受喜爱的当地市场，以超新鲜的螃蟹、海胆和哈密瓜闻名。海鲜盖饭堪称传奇。" }, image: "images/attractions/sushi-platter.jpg", bg: "#ffebee", tags: ["food"] },
+            { name: { en: "Mount Moiwa", zh: "藻岩山" }, jp: "藻岩山", desc: { en: "A scenic mountain offering one of Japan's top three night views. Reach the summit via ropeway and mini cable car.", zh: "风景优美的山峰，提供日本三大夜景之一。可乘坐缆车和迷你索道到达山顶。" }, image: "images/attractions/tokyo-skyline.jpg", bg: "#ede7f6", tags: ["nature"] },
         ]
     },
     {
-        name: { en: "Fukuoka", zh: "福冈" }, japanese: "福岡", emoji: "\ud83c\udf5c",
+        name: { en: "Fukuoka", zh: "福冈" }, japanese: "福岡",
+        image: "images/cities/fukuoka.jpg",
         region: { en: "Kyushu", zh: "九州" },
         population: "1.6M",
         bestSeason: { en: "Spring / Autumn", zh: "春季 / 秋季" },
@@ -440,16 +465,17 @@ const cities = [
         },
         color: "#d35400",
         attractions: [
-            { name: { en: "Yatai Food Stalls", zh: "屋台" }, jp: "屋台", desc: { en: "Iconic open-air food stalls lining the Nakasu riverbanks, serving ramen, yakitori, gyoza, and more in a lively communal setting.", zh: "标志性的露天美食摊位，沿中洲河岸排列，在热闹的氛围中供应拉面、烤鸡肉串、饺子等。" }, emoji: "\ud83c\udf5c", bg: "#fff3e0", tags: ["food"] },
-            { name: { en: "Dazaifu Tenmangu", zh: "太宰府天满宫" }, jp: "太宰府天満宮", desc: { en: "A major shrine dedicated to the god of learning, surrounded by plum trees. Students flock here to pray before exams.", zh: "供奉学问之神的重要神社，周围种满梅树。学生们在考试前蜂拥而至祈祷。" }, emoji: "\u26e9\ufe0f", bg: "#e8f5e9", tags: ["spiritual"] },
-            { name: { en: "Canal City Hakata", zh: "博多运河城" }, jp: "キャナルシティ博多", desc: { en: "A massive shopping and entertainment complex built around a canal, featuring fountains, shops, theaters, and a ramen stadium.", zh: "围绕运河建造的大型购物娱乐综合体，设有喷泉、商店、剧院和拉面竞技场。" }, emoji: "\ud83c\udfea", bg: "#e3f2fd", tags: ["modern"] },
-            { name: { en: "Ohori Park", zh: "大濠公园" }, jp: "大濠公園", desc: { en: "A scenic park built around a large lake, modeled after West Lake in Hangzhou. Perfect for jogging, pedal boating, and relaxing.", zh: "围绕大湖建造的风景公园，仿照杭州西湖。适合慢跑、脚踏船和休闲放松。" }, emoji: "\ud83d\udeb6", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Fukuoka Castle Ruins", zh: "福冈城遗址" }, jp: "福岡城跡", desc: { en: "Extensive castle ruins offering panoramic city views, especially beautiful during cherry blossom season.", zh: "广阔的城堡遗址，可以俯瞰城市全景，在樱花季尤为美丽。" }, emoji: "\ud83c\udff0", bg: "#ede7f6", tags: ["history", "nature"] },
-            { name: { en: "Hakata Machiya Folk Museum", zh: "博多町家故乡馆" }, jp: "博多町家ふるさと館", desc: { en: "A small museum showcasing Hakata's traditional culture, crafts, and the famous Hakata Gion Yamakasa festival.", zh: "展示博多传统文化、手工艺品和著名的博多祇园山笠节的小型博物馆。" }, emoji: "\ud83c\udfad", bg: "#fff8e1", tags: ["history"] },
+            { name: { en: "Yatai Food Stalls", zh: "屋台" }, jp: "屋台", desc: { en: "Iconic open-air food stalls lining the Nakasu riverbanks, serving ramen, yakitori, gyoza, and more in a lively communal setting.", zh: "标志性的露天美食摊位，沿中洲河岸排列，在热闹的氛围中供应拉面、烤鸡肉串、饺子等。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fff3e0", tags: ["food"] },
+            { name: { en: "Dazaifu Tenmangu", zh: "太宰府天满宫" }, jp: "太宰府天満宮", desc: { en: "A major shrine dedicated to the god of learning, surrounded by plum trees. Students flock here to pray before exams.", zh: "供奉学问之神的重要神社，周围种满梅树。学生们在考试前蜂拥而至祈祷。" }, image: "images/attractions/torii-forest.jpg", bg: "#e8f5e9", tags: ["spiritual"] },
+            { name: { en: "Canal City Hakata", zh: "博多运河城" }, jp: "キャナルシティ博多", desc: { en: "A massive shopping and entertainment complex built around a canal, featuring fountains, shops, theaters, and a ramen stadium.", zh: "围绕运河建造的大型购物娱乐综合体，设有喷泉、商店、剧院和拉面竞技场。" }, image: "images/attractions/fukuoka-night.jpg", bg: "#e3f2fd", tags: ["modern"] },
+            { name: { en: "Ohori Park", zh: "大濠公园" }, jp: "大濠公園", desc: { en: "A scenic park built around a large lake, modeled after West Lake in Hangzhou. Perfect for jogging, pedal boating, and relaxing.", zh: "围绕大湖建造的风景公园，仿照杭州西湖。适合慢跑、脚踏船和休闲放松。" }, image: "images/attractions/fuji-cherry.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Fukuoka Castle Ruins", zh: "福冈城遗址" }, jp: "福岡城跡", desc: { en: "Extensive castle ruins offering panoramic city views, especially beautiful during cherry blossom season.", zh: "广阔的城堡遗址，可以俯瞰城市全景，在樱花季尤为美丽。" }, image: "images/attractions/fuji-pagoda-sunset.jpg", bg: "#ede7f6", tags: ["history", "nature"] },
+            { name: { en: "Hakata Machiya Folk Museum", zh: "博多町家故乡馆" }, jp: "博多町家ふるさと館", desc: { en: "A small museum showcasing Hakata's traditional culture, crafts, and the famous Hakata Gion Yamakasa festival.", zh: "展示博多传统文化、手工艺品和著名的博多祇园山笠节的小型博物馆。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fff8e1", tags: ["history"] },
         ]
     },
     {
-        name: { en: "Kanazawa", zh: "金泽" }, japanese: "金沢", emoji: "\ud83c\udf3f",
+        name: { en: "Kanazawa", zh: "金泽" }, japanese: "金沢",
+        image: "images/cities/kanazawa.jpg",
         region: { en: "Chubu", zh: "中部" },
         population: "0.46M",
         bestSeason: { en: "All year", zh: "全年" },
@@ -459,12 +485,12 @@ const cities = [
         },
         color: "#16a085",
         attractions: [
-            { name: { en: "Kenroku-en Garden", zh: "兼六园" }, jp: "兼六園", desc: { en: "One of Japan's three most beautiful landscape gardens, stunning in every season with cherry blossoms, irises, autumn colors, and snow.", zh: "日本三大名园之一，四季皆美——樱花、鸢尾花、红叶和雪景。" }, emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature"] },
-            { name: { en: "Higashi Chaya District", zh: "东茶屋街" }, jp: "ひがし茶屋街", desc: { en: "A beautifully preserved geisha district with wooden teahouses dating to the 1820s. Some are open for visits and gold leaf sweets.", zh: "保存完好的艺伎街区，木造茶屋可追溯到1820年代。部分茶屋开放参观，可品尝金箔甜点。" }, emoji: "\ud83c\udfad", bg: "#fff8e1", tags: ["history"] },
-            { name: { en: "21st Century Museum of Art", zh: "21世纪美术馆" }, jp: "21世紀美術館", desc: { en: "A striking circular glass building housing contemporary art. The famous 'Swimming Pool' installation lets you see people 'underwater.'", zh: "引人注目的圆形玻璃建筑，展示当代艺术。著名的「游泳池」装置让你看到「水下」的人们。" }, emoji: "\ud83c\udfa8", bg: "#ede7f6", tags: ["modern"] },
-            { name: { en: "Kanazawa Castle", zh: "金泽城" }, jp: "金沢城", desc: { en: "A partially restored castle with impressive stone walls and gates, set in a spacious park adjacent to Kenroku-en.", zh: "部分修复的城堡，拥有令人印象深刻的石墙和城门，位于兼六园旁的宽敞公园内。" }, emoji: "\ud83c\udff0", bg: "#e3f2fd", tags: ["history"] },
-            { name: { en: "Omicho Market", zh: "近江町市场" }, jp: "近江町市場", desc: { en: "Kanazawa's bustling 'Kitchen,' operating for nearly 300 years, famous for supremely fresh crab, shrimp, and sushi.", zh: "金泽繁忙的「厨房」，经营近300年，以极其新鲜的螃蟹、虾和寿司闻名。" }, emoji: "\ud83e\udd80", bg: "#ffebee", tags: ["food"] },
-            { name: { en: "Nagamachi Samurai District", zh: "长町武家屋敷" }, jp: "長町武家屋敷跡", desc: { en: "A neighborhood of restored samurai residences with earthen walls and narrow lanes, offering a window into Edo-period life.", zh: "修复的武士住宅区，有土墙和狭窄的小巷，可以一窥江户时代的生活。" }, emoji: "\ud83c\udfe0", bg: "#fff3e0", tags: ["history"] },
+            { name: { en: "Kenroku-en Garden", zh: "兼六园" }, jp: "兼六園", desc: { en: "One of Japan's three most beautiful landscape gardens, stunning in every season with cherry blossoms, irises, autumn colors, and snow.", zh: "日本三大名园之一，四季皆美——樱花、鸢尾花、红叶和雪景。" }, image: "images/attractions/temple-garden.jpg", bg: "#e8f5e9", tags: ["nature"] },
+            { name: { en: "Higashi Chaya District", zh: "东茶屋街" }, jp: "ひがし茶屋街", desc: { en: "A beautifully preserved geisha district with wooden teahouses dating to the 1820s. Some are open for visits and gold leaf sweets.", zh: "保存完好的艺伎街区，木造茶屋可追溯到1820年代。部分茶屋开放参观，可品尝金箔甜点。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fff8e1", tags: ["history"] },
+            { name: { en: "21st Century Museum of Art", zh: "21世纪美术馆" }, jp: "21世紀美術館", desc: { en: "A striking circular glass building housing contemporary art. The famous 'Swimming Pool' installation lets you see people 'underwater.'", zh: "引人注目的圆形玻璃建筑，展示当代艺术。著名的「游泳池」装置让你看到「水下」的人们。" }, image: "images/attractions/art-museum.jpg", bg: "#ede7f6", tags: ["modern"] },
+            { name: { en: "Kanazawa Castle", zh: "金泽城" }, jp: "金沢城", desc: { en: "A partially restored castle with impressive stone walls and gates, set in a spacious park adjacent to Kenroku-en.", zh: "部分修复的城堡，拥有令人印象深刻的石墙和城门，位于兼六园旁的宽敞公园内。" }, image: "images/attractions/fuji-pagoda-sunset.jpg", bg: "#e3f2fd", tags: ["history"] },
+            { name: { en: "Omicho Market", zh: "近江町市场" }, jp: "近江町市場", desc: { en: "Kanazawa's bustling 'Kitchen,' operating for nearly 300 years, famous for supremely fresh crab, shrimp, and sushi.", zh: "金泽繁忙的「厨房」，经营近300年，以极其新鲜的螃蟹、虾和寿司闻名。" }, image: "images/attractions/sushi-platter.jpg", bg: "#ffebee", tags: ["food"] },
+            { name: { en: "Nagamachi Samurai District", zh: "长町武家屋敷" }, jp: "長町武家屋敷跡", desc: { en: "A neighborhood of restored samurai residences with earthen walls and narrow lanes, offering a window into Edo-period life.", zh: "修复的武士住宅区，有土墙和狭窄的小巷，可以一窥江户时代的生活。" }, image: "images/attractions/izakaya-alley.jpg", bg: "#fff3e0", tags: ["history"] },
         ]
     }
 ];
@@ -522,16 +548,12 @@ function showOverview() {
         <div class="overview-grid">
             ${cities.map((city, i) => `
                 <div class="overview-card" onclick="showCity(${i})">
-                    <div class="emoji">${city.emoji}</div>
+                    <div class="emoji"><img src="${city.image}" alt="${localize(city.name)}"></div>
                     <h3>${localize(city.name)}</h3>
                     <div class="jp">${city.japanese}</div>
                     <div class="count">${localize(city.region)} &middot; ${city.attractions.length} ${t('attractions')}</div>
                 </div>
             `).join('')}
-        </div>
-        <h2 class="section-title">${t('allAttractions')}</h2>
-        <div class="attractions-grid">
-            ${cities.flatMap(city => city.attractions.map(a => renderCard(a, localize(city.name)))).join('')}
         </div>
     `;
 }
@@ -554,8 +576,8 @@ function showCity(index) {
                     <div class="stat"><div class="stat-value">${localize(city.bestSeason)}</div><div class="stat-label">${t('bestSeason')}</div></div>
                 </div>
             </div>
-            <div class="city-hero-image" style="background: linear-gradient(135deg, ${city.color}33, ${city.color}11);">
-                ${city.emoji}
+            <div class="city-hero-image">
+                <img src="${city.image}" alt="${cityName}">
             </div>
         </div>
         <h2 class="section-title">${t('topAttractions')}</h2>
@@ -575,7 +597,7 @@ function setActiveNav(name) {
 function renderCard(attraction, cityName) {
     return `
         <div class="card">
-            <div class="card-icon" style="background: ${attraction.bg};">${attraction.emoji}</div>
+            <div class="card-icon"><img src="${attraction.image}" alt="${localize(attraction.name)}"></div>
             <div class="card-body">
                 <h3>${localize(attraction.name)}</h3>
                 <div class="jp-name">${attraction.jp} &middot; ${cityName}</div>
