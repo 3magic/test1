@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Japan</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f0eb;
+            color: #2c2c2c;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        header h1 span { color: #e94560; }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            position: relative;
+        }
+
+        nav {
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        nav button {
+            background: transparent;
+            color: #ccc;
+            border: 1px solid #333;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background: #e94560;
+            color: white;
+            border-color: #e94560;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .city-hero {
+            background: #1a1a2e;
+            color: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .city-hero-text { flex: 1; min-width: 280px; }
+        .city-hero-text h2 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+        .city-hero-text .japanese { font-size: 1.2rem; opacity: 0.6; margin-bottom: 1rem; }
+        .city-hero-text p { line-height: 1.7; opacity: 0.9; }
+
+        .city-hero-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.5rem;
+        }
+
+        .stat-value { font-size: 1.3rem; font-weight: bold; color: #e94560; }
+        .stat-label { font-size: 0.8rem; opacity: 0.7; }
+
+        .city-hero-image {
+            width: 300px;
+            height: 200px;
+            border-radius: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #e94560;
+            display: inline-block;
+        }
+
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .card-body { padding: 1.2rem; }
+        .card-body h3 { font-size: 1.15rem; margin-bottom: 0.2rem; }
+        .card-body .jp-name { font-size: 0.85rem; color: #999; margin-bottom: 0.6rem; }
+        .card-body p { font-size: 0.9rem; line-height: 1.6; color: #555; }
+
+        .card-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+
+        .tag {
+            background: #f0e6f6;
+            color: #7b2d8e;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .tag.nature { background: #e6f6e6; color: #2d7b2d; }
+        .tag.history { background: #f6ece6; color: #8e5a2d; }
+        .tag.food { background: #f6e6e6; color: #8e2d2d; }
+        .tag.modern { background: #e6e9f6; color: #2d3d8e; }
+        .tag.spiritual { background: #f5f0e0; color: #6b5b00; }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .overview-card {
+            background: white;
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .overview-card .emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+        .overview-card h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .overview-card .jp { font-size: 0.8rem; color: #999; }
+        .overview-card .count { font-size: 0.75rem; color: #e94560; margin-top: 0.5rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1a1a2e;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .city-hero { padding: 1.5rem; }
+            .city-hero-text h2 { font-size: 1.6rem; }
+            .city-hero-image { width: 100%; height: 150px; }
+            .attractions-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Explore <span>Japan</span></h1>
+    <p>Discover the major cities and tourist attractions across the Land of the Rising Sun</p>
+</header>
+
+<nav id="nav"></nav>
+
+<div class="container" id="content"></div>
+
+<footer>Explore Japan &mdash; A guide to Japan's cities and attractions</footer>
+
+<script>
+const cities = [
+    {
+        name: "Tokyo", japanese: "\u6771\u4eac", emoji: "\ud83c\udff9",
+        region: "Kanto",
+        population: "14M",
+        bestSeason: "Spring / Autumn",
+        description: "Japan's bustling capital blends ultramodern skyscrapers with historic temples. A city of endless neighborhoods, each with its own personality, from the electric energy of Shibuya to the serene gardens of the Imperial Palace.",
+        color: "#e94560",
+        attractions: [
+            { name: "Senso-ji Temple", jp: "\u6d45\u8349\u5bfa", desc: "Tokyo's oldest temple, located in Asakusa, features the iconic Kaminarimon (Thunder Gate) and a vibrant shopping street leading to the main hall.", emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["history", "spiritual"] },
+            { name: "Shibuya Crossing", jp: "\u6e0b\u8c37\u30b9\u30af\u30e9\u30f3\u30d6\u30eb\u4ea4\u5dee\u70b9", desc: "The world's busiest pedestrian crossing, surrounded by neon-lit buildings. Up to 3,000 people cross at each light change.", emoji: "\ud83d\udeb6", bg: "#e3f2fd", tags: ["modern"] },
+            { name: "Meiji Shrine", jp: "\u660e\u6cbb\u795e\u5bae", desc: "A tranquil Shinto shrine set within a 170-acre forest in the heart of the city, dedicated to Emperor Meiji and Empress Shoken.", emoji: "\u26e9\ufe0f", bg: "#e8f5e9", tags: ["spiritual", "nature"] },
+            { name: "Tokyo Skytree", jp: "\u6771\u4eac\u30b9\u30ab\u30a4\u30c4\u30ea\u30fc", desc: "At 634 meters, it's the tallest structure in Japan, offering panoramic views of the entire Tokyo metropolitan area.", emoji: "\ud83d\uddfc", bg: "#ede7f6", tags: ["modern"] },
+            { name: "Tsukiji Outer Market", jp: "\u7bc9\u5730\u5834\u5916\u5e02\u5834", desc: "A bustling market offering the freshest sushi, seafood, and Japanese street food. A paradise for food lovers.", emoji: "\ud83c\udf63", bg: "#fce4ec", tags: ["food"] },
+            { name: "Akihabara", jp: "\u79cb\u8449\u539f", desc: "The epicenter of anime, manga, and electronics culture. Packed with shops, arcades, and maid cafes.", emoji: "\ud83c\udfae", bg: "#e8eaf6", tags: ["modern"] },
+        ]
+    },
+    {
+        name: "Kyoto", japanese: "\u4eac\u90fd", emoji: "\u26e9\ufe0f",
+        region: "Kansai",
+        population: "1.5M",
+        bestSeason: "Spring / Autumn",
+        description: "The cultural heart of Japan, Kyoto served as the imperial capital for over a thousand years. Home to 17 UNESCO World Heritage sites, countless temples, traditional gardens, and geisha districts.",
+        color: "#c0392b",
+        attractions: [
+            { name: "Fushimi Inari Shrine", jp: "\u4f0f\u898b\u7a32\u8377\u5927\u793e", desc: "Famous for its thousands of vermillion torii gates that wind through the forested hillside behind the shrine. The full trail takes about 2 hours.", emoji: "\u26e9\ufe0f", bg: "#ffebee", tags: ["spiritual"] },
+            { name: "Kinkaku-ji", jp: "\u91d1\u95a3\u5bfa", desc: "The Golden Pavilion, a Zen Buddhist temple covered in gold leaf, reflecting beautifully over its surrounding pond garden.", emoji: "\ud83c\udfef", bg: "#fff8e1", tags: ["history", "spiritual"] },
+            { name: "Arashiyama Bamboo Grove", jp: "\u5d50\u5c71\u7af9\u6797", desc: "A mesmerizing pathway through towering bamboo stalks that sway and creak in the wind. Most magical in early morning light.", emoji: "\ud83c\udf8d", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Gion District", jp: "\u7941\u5712", desc: "Kyoto's most famous geisha district, with beautifully preserved wooden machiya townhouses, teahouses, and traditional restaurants.", emoji: "\ud83c\udfad", bg: "#fce4ec", tags: ["history"] },
+            { name: "Nijo Castle", jp: "\u4e8c\u6761\u57ce", desc: "A UNESCO World Heritage site featuring stunning gardens, ornate interiors, and famous 'nightingale floors' that chirp when walked upon.", emoji: "\ud83c\udff0", bg: "#e3f2fd", tags: ["history"] },
+            { name: "Kiyomizu-dera", jp: "\u6e05\u6c34\u5bfa", desc: "A spectacular hilltop temple with a massive wooden stage that offers stunning views of Kyoto, especially during cherry blossom and autumn foliage seasons.", emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["spiritual", "history"] },
+        ]
+    },
+    {
+        name: "Osaka", japanese: "\u5927\u962a", emoji: "\ud83c\udf1f",
+        region: "Kansai",
+        population: "2.7M",
+        bestSeason: "Spring / Autumn",
+        description: "Known as Japan's kitchen, Osaka is a food lover's paradise with a vibrant street food scene. The city is famous for its outgoing locals, comedy culture, and lively nightlife.",
+        color: "#e67e22",
+        attractions: [
+            { name: "Osaka Castle", jp: "\u5927\u962a\u57ce", desc: "An iconic landmark surrounded by a vast park, originally built in 1583. The castle museum inside covers Osaka's rich history.", emoji: "\ud83c\udff0", bg: "#fff3e0", tags: ["history"] },
+            { name: "Dotonbori", jp: "\u9053\u9813\u5800", desc: "Osaka's most famous entertainment district, known for its dazzling neon signs, the iconic Glico Running Man, and incredible street food.", emoji: "\ud83c\udf1f", bg: "#e3f2fd", tags: ["food", "modern"] },
+            { name: "Kuromon Market", jp: "\u9ed2\u9580\u5e02\u5834", desc: "Called 'Osaka's Kitchen,' this 600-meter-long market offers fresh seafood, fruits, street snacks, and local delicacies.", emoji: "\ud83e\udd90", bg: "#fce4ec", tags: ["food"] },
+            { name: "Universal Studios Japan", jp: "\u30e6\u30cb\u30d0\u30fc\u30b5\u30eb\u30b9\u30bf\u30b8\u30aa", desc: "A world-class theme park featuring Wizarding World of Harry Potter, Nintendo World, and thrilling rides.", emoji: "\ud83c\udfa2", bg: "#ede7f6", tags: ["modern"] },
+            { name: "Shinsekai", jp: "\u65b0\u4e16\u754c", desc: "A retro neighborhood built in 1912, centered around the Tsutenkaku Tower. Famous for kushikatsu (deep-fried skewers) restaurants.", emoji: "\ud83c\udff7\ufe0f", bg: "#e8f5e9", tags: ["food", "history"] },
+            { name: "Sumiyoshi Taisha", jp: "\u4f4f\u5409\u5927\u793e", desc: "One of Japan's oldest and most prestigious shrines, featuring a unique architectural style that predates Chinese influence.", emoji: "\u26e9\ufe0f", bg: "#fff8e1", tags: ["spiritual", "history"] },
+        ]
+    },
+    {
+        name: "Hiroshima", japanese: "\u5e83\u5cf6", emoji: "\u2615\ufe0f",
+        region: "Chugoku",
+        population: "1.2M",
+        bestSeason: "Spring",
+        description: "A city reborn from tragedy, Hiroshima stands as a powerful symbol of peace. Today it's a vibrant, modern city with delicious local cuisine, a welcoming atmosphere, and easy access to the sacred island of Miyajima.",
+        color: "#27ae60",
+        attractions: [
+            { name: "Hiroshima Peace Memorial", jp: "\u539f\u7206\u30c9\u30fc\u30e0", desc: "The iconic A-Bomb Dome, preserved as it stood after the 1945 bombing. A haunting and powerful UNESCO World Heritage site.", emoji: "\ud83d\udd4a\ufe0f", bg: "#e8f5e9", tags: ["history"] },
+            { name: "Peace Memorial Museum", jp: "\u5e73\u548c\u8a18\u5ff5\u8cc7\u6599\u9928", desc: "A deeply moving museum documenting the atomic bombing and its aftermath, with personal artifacts and stories of survivors.", emoji: "\ud83c\udfdb\ufe0f", bg: "#e3f2fd", tags: ["history"] },
+            { name: "Miyajima Island", jp: "\u5bae\u5cf6", desc: "A sacred island famous for its 'floating' torii gate of Itsukushima Shrine. Home to friendly deer and scenic mountain trails.", emoji: "\u26e9\ufe0f", bg: "#fff3e0", tags: ["spiritual", "nature"] },
+            { name: "Shukkeien Garden", jp: "\u7e2e\u666f\u5712", desc: "A beautiful historical garden dating to 1620 that miniaturizes famous landscapes, with bridges, tea houses, and koi ponds.", emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature", "history"] },
+            { name: "Hiroshima Castle", jp: "\u5e83\u5cf6\u57ce", desc: "Nicknamed the 'Carp Castle,' this reconstructed fortress houses a museum on Hiroshima's pre-war history.", emoji: "\ud83c\udff0", bg: "#ede7f6", tags: ["history"] },
+            { name: "Okonomimura", jp: "\u304a\u597d\u307f\u6751", desc: "A multi-floor food hall dedicated to Hiroshima-style okonomiyaki, the savory layered pancake that's the city's signature dish.", emoji: "\ud83e\udd5e", bg: "#fff8e1", tags: ["food"] },
+        ]
+    },
+    {
+        name: "Nara", japanese: "\u5948\u826f", emoji: "\ud83e\udd8c",
+        region: "Kansai",
+        population: "0.35M",
+        bestSeason: "Spring / Autumn",
+        description: "Japan's first permanent capital (710 AD), Nara is a compact, walkable city famous for its free-roaming deer, massive bronze Buddha, and some of the oldest wooden buildings in the world.",
+        color: "#8e44ad",
+        attractions: [
+            { name: "Todai-ji Temple", jp: "\u6771\u5927\u5bfa", desc: "Home to the Great Buddha (Daibutsu), a 15-meter tall bronze statue housed in one of the largest wooden buildings in the world.", emoji: "\ud83d\udfe4", bg: "#fff8e1", tags: ["spiritual", "history"] },
+            { name: "Nara Park", jp: "\u5948\u826f\u516c\u5712", desc: "A vast park home to over 1,000 wild sika deer, considered divine messengers. You can buy deer crackers to feed them.", emoji: "\ud83e\udd8c", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Kasuga Taisha", jp: "\u6625\u65e5\u5927\u793e", desc: "A stunning Shinto shrine famous for its hundreds of bronze and stone lanterns, set in a primeval forest.", emoji: "\ud83c\udfee", bg: "#ffebee", tags: ["spiritual"] },
+            { name: "Isuien Garden", jp: "\u4f9d\u6c34\u5712", desc: "An elegant Meiji-era garden with borrowed scenery from Todai-ji and the surrounding mountains.", emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Naramachi", jp: "\u306a\u3089\u307e\u3061", desc: "A charming old merchant district with narrow lanes, traditional townhouses, craft shops, and cozy cafes.", emoji: "\ud83c\udfe0", bg: "#fce4ec", tags: ["history"] },
+            { name: "Horyu-ji Temple", jp: "\u6cd5\u9686\u5bfa", desc: "The world's oldest surviving wooden structures, dating to the 7th century. A UNESCO World Heritage site of immense historical importance.", emoji: "\u26e9\ufe0f", bg: "#ede7f6", tags: ["history", "spiritual"] },
+        ]
+    },
+    {
+        name: "Sapporo", japanese: "\u672d\u5e4c", emoji: "\u2744\ufe0f",
+        region: "Hokkaido",
+        population: "2.0M",
+        bestSeason: "Winter / Summer",
+        description: "The capital of Hokkaido, Japan's northern frontier. Sapporo is famous for its annual Snow Festival, world-class skiing, fresh seafood, and its signature miso ramen and beer.",
+        color: "#2980b9",
+        attractions: [
+            { name: "Sapporo Snow Festival", jp: "\u3055\u3063\u307d\u308d\u96ea\u307e\u3064\u308a", desc: "Held every February, this world-famous festival features massive snow and ice sculptures across three venues in the city.", emoji: "\u2744\ufe0f", bg: "#e3f2fd", tags: ["modern"] },
+            { name: "Odori Park", jp: "\u5927\u901a\u516c\u5712", desc: "A 1.5 km green belt through central Sapporo, hosting seasonal events from the Snow Festival to the Autumn Festival and beer gardens.", emoji: "\ud83c\udf33", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Sapporo Beer Museum", jp: "\u30b5\u30c3\u30dd\u30ed\u30d3\u30fc\u30eb\u535a\u7269\u9928", desc: "Japan's only beer museum, housed in a beautiful red-brick building. Learn the history and enjoy tastings of Sapporo's famous brew.", emoji: "\ud83c\udf7a", bg: "#fff8e1", tags: ["food", "history"] },
+            { name: "Niseko Ski Resort", jp: "\u30cb\u30bb\u30b3", desc: "World-renowned for its incredible powder snow. One of Asia's top ski destinations, about 2 hours from Sapporo.", emoji: "\u26f7\ufe0f", bg: "#e3f2fd", tags: ["nature"] },
+            { name: "Nijo Market", jp: "\u4e8c\u6761\u5e02\u5834", desc: "A beloved local market since 1903, famous for ultra-fresh crab, uni (sea urchin), and melon. The seafood bowls are legendary.", emoji: "\ud83e\udd80", bg: "#ffebee", tags: ["food"] },
+            { name: "Mount Moiwa", jp: "\u85fb\u5ca9\u5c71", desc: "A scenic mountain offering one of Japan's top three night views. Reach the summit via ropeway and mini cable car.", emoji: "\ud83c\udfd4\ufe0f", bg: "#ede7f6", tags: ["nature"] },
+        ]
+    },
+    {
+        name: "Fukuoka", japanese: "\u798f\u5ca1", emoji: "\ud83c\udf5c",
+        region: "Kyushu",
+        population: "1.6M",
+        bestSeason: "Spring / Autumn",
+        description: "Gateway to Kyushu, Fukuoka is a fast-growing, youthful city famous for its incredible food scene, especially tonkotsu ramen served at atmospheric yatai (street stalls) along the river.",
+        color: "#d35400",
+        attractions: [
+            { name: "Yatai Food Stalls", jp: "\u5c4b\u53f0", desc: "Iconic open-air food stalls lining the Nakasu riverbanks, serving ramen, yakitori, gyoza, and more in a lively communal setting.", emoji: "\ud83c\udf5c", bg: "#fff3e0", tags: ["food"] },
+            { name: "Dazaifu Tenmangu", jp: "\u592a\u5b70\u5e9c\u5929\u6e80\u5bae", desc: "A major shrine dedicated to the god of learning, surrounded by plum trees. Students flock here to pray before exams.", emoji: "\u26e9\ufe0f", bg: "#e8f5e9", tags: ["spiritual"] },
+            { name: "Canal City Hakata", jp: "\u30ad\u30e3\u30ca\u30eb\u30b7\u30c6\u30a3\u535a\u591a", desc: "A massive shopping and entertainment complex built around a canal, featuring fountains, shops, theaters, and a ramen stadium.", emoji: "\ud83c\udfea", bg: "#e3f2fd", tags: ["modern"] },
+            { name: "Ohori Park", jp: "\u5927\u6ff1\u516c\u5712", desc: "A scenic park built around a large lake, modeled after West Lake in Hangzhou. Perfect for jogging, pedal boating, and relaxing.", emoji: "\ud83d\udeb6", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Fukuoka Castle Ruins", jp: "\u798f\u5ca1\u57ce\u8de1", desc: "Extensive castle ruins offering panoramic city views, especially beautiful during cherry blossom season.", emoji: "\ud83c\udff0", bg: "#ede7f6", tags: ["history", "nature"] },
+            { name: "Hakata Machiya Folk Museum", jp: "\u535a\u591a\u753a\u5bb6\u3075\u308b\u3055\u3068\u9928", desc: "A small museum showcasing Hakata's traditional culture, crafts, and the famous Hakata Gion Yamakasa festival.", emoji: "\ud83c\udfad", bg: "#fff8e1", tags: ["history"] },
+        ]
+    },
+    {
+        name: "Kanazawa", japanese: "\u91d1\u6ca2", emoji: "\ud83c\udf3f",
+        region: "Chubu",
+        population: "0.46M",
+        bestSeason: "All year",
+        description: "Spared from wartime bombing, Kanazawa preserves beautifully intact samurai and geisha districts. Often called 'Little Kyoto,' it offers a more intimate, less crowded glimpse into traditional Japan.",
+        color: "#16a085",
+        attractions: [
+            { name: "Kenroku-en Garden", jp: "\u517c\u516d\u5712", desc: "One of Japan's three most beautiful landscape gardens, stunning in every season with cherry blossoms, irises, autumn colors, and snow.", emoji: "\ud83c\udf3f", bg: "#e8f5e9", tags: ["nature"] },
+            { name: "Higashi Chaya District", jp: "\u3072\u304c\u3057\u8336\u5c4b\u8857", desc: "A beautifully preserved geisha district with wooden teahouses dating to the 1820s. Some are open for visits and gold leaf sweets.", emoji: "\ud83c\udfad", bg: "#fff8e1", tags: ["history"] },
+            { name: "21st Century Museum of Art", jp: "21\u4e16\u7d00\u7f8e\u8853\u9928", desc: "A striking circular glass building housing contemporary art. The famous 'Swimming Pool' installation lets you see people 'underwater.'", emoji: "\ud83c\udfa8", bg: "#ede7f6", tags: ["modern"] },
+            { name: "Kanazawa Castle", jp: "\u91d1\u6ca2\u57ce", desc: "A partially restored castle with impressive stone walls and gates, set in a spacious park adjacent to Kenroku-en.", emoji: "\ud83c\udff0", bg: "#e3f2fd", tags: ["history"] },
+            { name: "Omicho Market", jp: "\u8fd1\u6c5f\u753a\u5e02\u5834", desc: "Kanazawa's bustling 'Kitchen,' operating for nearly 300 years, famous for supremely fresh crab, shrimp, and sushi.", emoji: "\ud83e\udd80", bg: "#ffebee", tags: ["food"] },
+            { name: "Nagamachi Samurai District", jp: "\u9577\u753a\u6b66\u5bb6\u5c4b\u6577\u8de1", desc: "A neighborhood of restored samurai residences with earthen walls and narrow lanes, offering a window into Edo-period life.", emoji: "\ud83c\udfe0", bg: "#fff3e0", tags: ["history"] },
+        ]
+    }
+];
+
+function renderNav() {
+    const nav = document.getElementById('nav');
+    const overviewBtn = document.createElement('button');
+    overviewBtn.textContent = 'All Cities';
+    overviewBtn.className = 'active';
+    overviewBtn.onclick = () => showOverview();
+    nav.appendChild(overviewBtn);
+
+    cities.forEach(city => {
+        const btn = document.createElement('button');
+        btn.textContent = city.name;
+        btn.onclick = () => showCity(city.name);
+        nav.appendChild(btn);
+    });
+}
+
+function setActiveNav(name) {
+    document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === name);
+    });
+}
+
+function showOverview() {
+    setActiveNav('All Cities');
+    const content = document.getElementById('content');
+    content.innerHTML = `
+        <h2 class="section-title">Major Cities of Japan</h2>
+        <div class="overview-grid">
+            ${cities.map(city => `
+                <div class="overview-card" onclick="showCity('${city.name}')">
+                    <div class="emoji">${city.emoji}</div>
+                    <h3>${city.name}</h3>
+                    <div class="jp">${city.japanese}</div>
+                    <div class="count">${city.region} &middot; ${city.attractions.length} attractions</div>
+                </div>
+            `).join('')}
+        </div>
+        <h2 class="section-title">All Attractions</h2>
+        <div class="attractions-grid">
+            ${cities.flatMap(city => city.attractions.map(a => renderCard(a, city.name))).join('')}
+        </div>
+    `;
+}
+
+function showCity(name) {
+    setActiveNav(name);
+    const city = cities.find(c => c.name === name);
+    const content = document.getElementById('content');
+    content.innerHTML = `
+        <div class="city-hero">
+            <div class="city-hero-text">
+                <h2>${city.name}</h2>
+                <div class="japanese">${city.japanese}</div>
+                <p>${city.description}</p>
+                <div class="city-hero-stats">
+                    <div class="stat"><div class="stat-value">${city.population}</div><div class="stat-label">Population</div></div>
+                    <div class="stat"><div class="stat-value">${city.region}</div><div class="stat-label">Region</div></div>
+                    <div class="stat"><div class="stat-value">${city.bestSeason}</div><div class="stat-label">Best Season</div></div>
+                </div>
+            </div>
+            <div class="city-hero-image" style="background: linear-gradient(135deg, ${city.color}33, ${city.color}11);">
+                ${city.emoji}
+            </div>
+        </div>
+        <h2 class="section-title">Top Attractions</h2>
+        <div class="attractions-grid">
+            ${city.attractions.map(a => renderCard(a, city.name)).join('')}
+        </div>
+    `;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderCard(attraction, cityName) {
+    return `
+        <div class="card">
+            <div class="card-icon" style="background: ${attraction.bg};">${attraction.emoji}</div>
+            <div class="card-body">
+                <h3>${attraction.name}</h3>
+                <div class="jp-name">${attraction.jp} &middot; ${cityName}</div>
+                <p>${attraction.desc}</p>
+                <div class="card-tags">
+                    ${attraction.tags.map(t => `<span class="tag ${t}">${t}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+renderNav();
+showOverview();
+</script>
+
+</body>
+</html>
