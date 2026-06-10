@@ -197,10 +197,10 @@ img { max-width: 100%; display: block; }
 .rc-desc  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 0; }
 
 /* ── Related themes ── */
-.related { padding: 5rem 0; background: var(--dark); }
+.related { padding: 5rem 0; background: var(--dark); text-align: center; }
 .related .label { color: var(--tc); }
 .related h2 { color: var(--warm-white); margin-bottom: 2.5rem; font-size: clamp(1.6rem,3.5vw,2.4rem); }
-.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 0.85rem; }
+.theme-grid { display: grid; grid-template-columns: repeat(4, minmax(155px, 200px)); justify-content: center; gap: 0.85rem; }
 .tc-card {
   display: block; border-radius: 8px; padding: 1.2rem; overflow: hidden;
   position: relative; transition: transform 0.2s, box-shadow 0.2s;
@@ -209,11 +209,12 @@ img { max-width: 100%; display: block; }
   content: ''; position: absolute; inset: 0; background: var(--bg, #eee);
   opacity: 0.85; transition: opacity 0.2s;
 }
-.tc-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
-.tc-card:hover::before { opacity: 1; }
+a.tc-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+a.tc-card:hover::before { opacity: 1; }
 .tc-card > * { position: relative; z-index: 1; }
 .tc-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; display: block; margin-bottom: 0.2rem; color: var(--dark); }
 .tc-card-word { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: #46433a; display: block; }
+.tc-card.current { border: 6px solid var(--hl, var(--tc)); }
 
 .bg-punya   { --bg: #E4C67C; }
 .bg-bodhi   { --bg: #B5DBBD; }
