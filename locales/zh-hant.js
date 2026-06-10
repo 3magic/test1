@@ -4,7 +4,7 @@ window.LOCALES['zh-hant'] = {
   langLabel: '中文',
   dir: 'ltr',
   ui: {
-    nav:     { gallery: '圖庫', poems: '詩詞', about: '關於' },
+    nav:     { gallery: '抵達', poems: '品詩', about: '歸處' },
     hero:    { cta: '進入' },
     gallery: { label: '每日一景', heading: '今日之<em>禮</em>' },
     poems:   { label: '今日詩詞', heading: '<em>靜謐</em>之聲', east: '東方', west: '西方' },

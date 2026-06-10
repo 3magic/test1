@@ -4,7 +4,7 @@ window.LOCALES['th'] = {
   langLabel: 'ไทย',
   dir: 'ltr',
   ui: {
-    nav:     { gallery: 'แกลเลอรี่', poems: 'บทกวี', about: 'เกี่ยวกับ' },
+    nav:     { gallery: 'ผลิบาน', poems: 'ลิ้มกวี', about: 'ที่พักใจ' },
     hero:    { cta: 'เข้าสู่' },
     gallery: { label: 'วิสัยทัศน์แห่งวัน', heading: 'ของขวัญ<em>แห่งวัน</em>' },
     poems:   { label: 'บทกวีวันนี้', heading: 'เสียงแห่ง<em>ความสงบ</em>', east: 'ตะวันออก', west: 'ตะวันตก' },

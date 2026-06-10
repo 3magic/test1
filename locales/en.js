@@ -4,7 +4,7 @@ window.LOCALES['en'] = {
   langLabel: 'EN',
   dir: 'ltr',
   ui: {
-    nav:     { gallery: 'Gallery', poems: 'Poems', about: 'About' },
+    nav:     { gallery: 'Becoming', poems: 'Poetry', about: 'Belonging' },
     hero:    { cta: 'Enter' },
     gallery: { label: 'Daily Vision', heading: "Each Day's <em>Gift</em>" },
     poems:   { label: "Today's Poems", heading: 'Voices of <em>Stillness</em>', east: 'East', west: 'West' },

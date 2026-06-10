@@ -109,6 +109,12 @@
     nav.scrolled .nav-links a { color: var(--medium); text-shadow: none; }
     .nav-links a:hover { color: var(--gold) !important; text-shadow: none; }
 
+    html[lang="ja"] .nav-links a,
+    html[lang="zh-hans"] .nav-links a,
+    html[lang="zh-hant"] .nav-links a,
+    html[lang="th"] .nav-links a,
+    html[lang="vi"] .nav-links a { font-size: 0.9rem; letter-spacing: 0.06em; }
+
     /* ── Hero ── */
     .hero {
       position: relative;
@@ -748,9 +754,9 @@
   <nav id="main-nav">
     <a href="#" class="nav-logo">Moment of Zen<span class="nav-beta">beta</span></a>
     <ul class="nav-links">
-      <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
-      <li><a href="#words"   data-i18n="nav.poems">Poems</a></li>
-      <li><a href="#about"   data-i18n="nav.about">About</a></li>
+      <li><a href="#gallery" data-i18n="nav.gallery">Becoming</a></li>
+      <li><a href="#words"   data-i18n="nav.poems">Poetry</a></li>
+      <li><a href="#about"   data-i18n="nav.about">Belonging</a></li>
     </ul>
     <div class="lang-select" id="langSelect">
       <button class="lang-btn" id="langBtn">EN <span class="lang-caret">&#9662;</span></button>

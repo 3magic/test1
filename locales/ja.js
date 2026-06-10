@@ -4,7 +4,7 @@ window.LOCALES['ja'] = {
   langLabel: '日本語',
   dir: 'ltr',
   ui: {
-    nav:     { gallery: 'ギャラリー', poems: '詩歌', about: 'について' },
+    nav:     { gallery: '辿り', poems: '詩味', about: '帰り処' },
     hero:    { cta: '入る' },
     gallery: { label: '今日のビジョン', heading: '今日の<em>贈りもの</em>' },
     poems:   { label: '今日の詩', heading: '<em>静寂</em>の声', east: '東', west: '西' },

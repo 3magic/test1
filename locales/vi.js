@@ -4,7 +4,7 @@ window.LOCALES['vi'] = {
   langLabel: 'VI',
   dir: 'ltr',
   ui: {
-    nav:     { gallery: 'Thư viện', poems: 'Thơ ca', about: 'Giới thiệu' },
+    nav:     { gallery: 'Nở Ra', poems: 'Thưởng Thơ', about: 'Chốn Về' },
     hero:    { cta: 'Vào' },
     gallery: { label: 'Tầm nhìn hàng ngày', heading: 'Món quà <em>mỗi ngày</em>' },
     poems:   { label: 'Thơ hôm nay', heading: 'Tiếng nói <em>tĩnh lặng</em>', east: 'Phương Đông', west: 'Phương Tây' },
