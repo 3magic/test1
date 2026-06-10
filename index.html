@@ -684,26 +684,37 @@
       .nav-links { display: none; }
       .nav-hamburger { display: block; }
 
+      nav.nav-open {
+        height: 100dvh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        background: rgba(10,8,4,0.97) !important;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        padding: 2rem;
+      }
+      nav.nav-open .nav-brand,
+      nav.nav-open .lang-select { display: none; }
       nav.nav-open .nav-links {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
-        position: fixed;
-        inset: 0;
-        background: rgba(10,8,4,0.96);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        padding: 6rem 2rem 3rem;
-        z-index: 997;
+        gap: 2.8rem;
       }
       nav.nav-open .nav-links a {
-        font-size: 1rem;
+        font-size: 1.05rem;
         letter-spacing: 0.28em;
         color: rgba(255,255,255,0.9);
         text-shadow: none;
       }
-      nav.nav-open .nav-hamburger { color: rgba(255,255,255,0.88); }
+      nav.nav-open .nav-hamburger {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.5rem;
+        color: rgba(255,255,255,0.88);
+      }
       #breathe { padding: 6rem 1.75rem; }
       #gallery, #words, #about { padding: 5rem 1.5rem; }
     }
@@ -1312,9 +1323,17 @@
     }, { passive: true });
 
     const hamburger = document.getElementById('navHamburger');
-    hamburger.addEventListener('click', () => nav.classList.toggle('nav-open'));
+    hamburger.addEventListener('click', () => {
+      const open = nav.classList.toggle('nav-open');
+      hamburger.innerHTML = open ? '&#10005;' : '&#9776;';
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+    });
     document.querySelectorAll('.nav-links a').forEach(a =>
-      a.addEventListener('click', () => nav.classList.remove('nav-open'))
+      a.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+        hamburger.innerHTML = '&#9776;';
+        hamburger.setAttribute('aria-label', 'Menu');
+      })
     );
 
     // ─── Fade-in on scroll ────────────────────────────────────────────────────
