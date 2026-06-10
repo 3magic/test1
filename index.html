@@ -7,7 +7,7 @@
   <title>Moment of Zen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;600&family=Ma+Shan+Zheng&family=Nanum+Myeongjo:wght@400;700&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
   <!-- Locale data (en pre-loaded; others lazy-loaded on selection) -->
   <script src="locales/en.js"></script>
   <script src="i18n.js"></script>
@@ -134,6 +134,7 @@
     html[lang="ja"] .nav-links a,
     html[lang="zh-hans"] .nav-links a,
     html[lang="zh-hant"] .nav-links a,
+    html[lang="ko"] .nav-links a,
     html[lang="th"] .nav-links a,
     html[lang="vi"] .nav-links a { font-size: 0.9rem; letter-spacing: 0.06em; }
 
@@ -815,6 +816,17 @@
       font-family: 'Ma Shan Zheng', 'KaiTi', 'STKaiti', '標楷體', 'DFKai-SB', serif;
       font-style: normal;
     }
+
+    /* ── Nanum Myeongjo for Korean ── */
+    html[lang="ko"] .hero-sub,
+    html[lang="ko"] .breathe-quote,
+    html[lang="ko"] .gallery-header h2,
+    html[lang="ko"] #words h2,
+    html[lang="ko"] .about-text h2,
+    html[lang="ko"] .about-text p {
+      font-family: 'Nanum Myeongjo', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
+      font-style: normal;
+    }
   </style>
 </head>
 <body>
@@ -1170,11 +1182,11 @@
       const navDateEl = document.getElementById('navDate');
       if (navDateEl && activeDates[idx]) {
         const d = new Date(activeDates[idx] + 'T12:00:00');
-        const bcp47 = { en: 'en-US', ja: 'ja-JP', 'zh-hans': 'zh-CN', 'zh-hant': 'zh-TW', th: 'th-TH', vi: 'vi-VN' };
+        const bcp47 = { en: 'en-US', ja: 'ja-JP', 'zh-hans': 'zh-CN', 'zh-hant': 'zh-TW', ko: 'ko-KR', th: 'th-TH', vi: 'vi-VN' };
         const dateStr = d.toLocaleDateString(bcp47[activeLang] || 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         const locData = window.LOCALES && window.LOCALES[activeLang];
         const editionWord = (locData && locData.ui.date && locData.ui.date.edition) || 'Edition';
-        const sep = ['ja', 'zh-hans', 'zh-hant', 'th'].includes(activeLang) ? '' : ' ';
+        const sep = ['ja', 'zh-hans', 'zh-hant', 'ko', 'th'].includes(activeLang) ? '' : ' ';
         navDateEl.textContent = dateStr + sep + editionWord;
       }
 
