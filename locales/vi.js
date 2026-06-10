@@ -17,7 +17,8 @@ window.LOCALES['vi'] = {
     },
     footer:  { tagline: 'Nơi trú ẩn bình yên' },
     music:   { play: 'Phát nhạc nền', pause: 'Tạm dừng nhạc nền' },
-    arrows:  { prev: 'Ngày trước', next: 'Ngày kế tiếp' }
+    arrows:  { prev: 'Ngày trước', next: 'Ngày kế tiếp' },
+    date:    { edition: 'Ấn Bản' }
   },
   pool: [
     { subtitle: 'Nơi trú ẩn bình yên — nơi vẻ đẹp làm chậm thời gian và im lặng lên tiếng.',

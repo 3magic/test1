@@ -17,7 +17,8 @@ window.LOCALES['ja'] = {
     },
     footer:  { tagline: '静けさの聖域' },
     music:   { play: 'BGMを再生', pause: 'BGMを停止' },
-    arrows:  { prev: '前の日', next: '次の日' }
+    arrows:  { prev: '前の日', next: '次の日' },
+    date:    { edition: '号' }
   },
   pool: [
     { subtitle: '静けさの聖域——美が時を緩め、沈黙が語りかける場所。',

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <title>Moment of Zen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
   <!-- Locale data (en pre-loaded; others lazy-loaded on selection) -->
   <script src="locales/en.js"></script>
   <script src="i18n.js"></script>
@@ -71,6 +71,28 @@
     }
 
     nav.scrolled .nav-logo { color: var(--dark); text-shadow: none; }
+
+    .nav-brand { display: flex; flex-direction: column; gap: 0.22rem; }
+
+    .nav-date {
+      font-family: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.82);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+      white-space: nowrap;
+      align-self: flex-start;
+      background: rgba(201,169,110,0.13);
+      border-radius: 3px;
+      padding: 0.1rem 0.48rem;
+      transition: color 0.4s, text-shadow 0.4s, background 0.4s;
+    }
+    nav.scrolled .nav-date {
+      color: var(--medium);
+      text-shadow: none;
+      background: rgba(201,169,110,0.09);
+    }
 
     .nav-beta {
       font-family: 'Jost', sans-serif;
@@ -605,7 +627,7 @@
     /* ── Music toggle — fixed top-left below nav logo ── */
     .music-toggle {
       position: fixed;
-      top: 5.2rem;
+      top: 6.6rem;
       left: 1.5rem;
       z-index: 998;
       width: 40px;
@@ -752,7 +774,10 @@
 
   <!-- ── Navigation ── -->
   <nav id="main-nav">
-    <a href="#" class="nav-logo">Moment of Zen<span class="nav-beta">beta</span></a>
+    <div class="nav-brand">
+      <a href="#" class="nav-logo">Moment of Zen<span class="nav-beta">beta</span></a>
+      <span class="nav-date" id="navDate"></span>
+    </div>
     <ul class="nav-links">
       <li><a href="#gallery" data-i18n="nav.gallery">Becoming</a></li>
       <li><a href="#words"   data-i18n="nav.poems">Poetry</a></li>
@@ -769,7 +794,7 @@
     <div class="hero-bg" id="heroBg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">momentofzen.art</p>
+      <p class="hero-eyebrow">momentofzen.art presents</p>
       <h1 class="hero-title">Moment<br><em>of Zen</em></h1>
       <p class="hero-sub" id="heroSub"></p>
       <a href="#breathe" class="hero-cta" data-i18n="hero.cta">Enter</a>
@@ -1092,6 +1117,18 @@
       const locPool = (!dayTrans && pi !== null && window.I18N) ? window.I18N.getPool(pi) : null;
       const trans = dayTrans || locPool;
       updateArrows();
+
+      // Date display below logo
+      const navDateEl = document.getElementById('navDate');
+      if (navDateEl && activeDates[idx]) {
+        const d = new Date(activeDates[idx] + 'T12:00:00');
+        const bcp47 = { en: 'en-US', ja: 'ja-JP', 'zh-hans': 'zh-CN', 'zh-hant': 'zh-TW', th: 'th-TH', vi: 'vi-VN' };
+        const dateStr = d.toLocaleDateString(bcp47[activeLang] || 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const locData = window.LOCALES && window.LOCALES[activeLang];
+        const editionWord = (locData && locData.ui.date && locData.ui.date.edition) || 'Edition';
+        const sep = ['ja', 'zh-hans', 'zh-hant', 'th'].includes(activeLang) ? '' : ' ';
+        navDateEl.textContent = dateStr + sep + editionWord;
+      }
 
       // Crossfade hero background
       const heroBg = document.getElementById('heroBg');

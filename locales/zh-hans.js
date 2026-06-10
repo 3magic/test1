@@ -17,7 +17,8 @@ window.LOCALES['zh-hans'] = {
     },
     footer:  { tagline: '宁静之所' },
     music:   { play: '播放背景音乐', pause: '暂停背景音乐' },
-    arrows:  { prev: '前一天', next: '后一天' }
+    arrows:  { prev: '前一天', next: '后一天' },
+    date:    { edition: '版' }
   },
   pool: [
     { subtitle: '宁静之所——在这里，美使时光放缓，寂静诉说。',

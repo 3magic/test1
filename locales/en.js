@@ -17,7 +17,8 @@ window.LOCALES['en'] = {
     },
     footer:  { tagline: 'A sanctuary of calm' },
     music:   { play: 'Play background music', pause: 'Pause background music' },
-    arrows:  { prev: 'Previous day', next: 'Next day' }
+    arrows:  { prev: 'Previous day', next: 'Next day' },
+    date:    { edition: 'Edition' }
   },
   pool: [
     { subtitle: 'A sanctuary of calm — where beauty slows time and silence speaks.',

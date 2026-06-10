@@ -17,7 +17,8 @@ window.LOCALES['zh-hant'] = {
     },
     footer:  { tagline: '寧靜之所' },
     music:   { play: '播放背景音樂', pause: '暫停背景音樂' },
-    arrows:  { prev: '前一天', next: '後一天' }
+    arrows:  { prev: '前一天', next: '後一天' },
+    date:    { edition: '版' }
   },
   pool: [
     { subtitle: '寧靜之所——在這裡，美使時光放緩，寂靜訴說。',
