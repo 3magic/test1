@@ -447,7 +447,7 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.18s;
-      max-width: 380px;
+      max-width: min(380px, calc(100vw - 20px));
       min-width: 230px;
       text-align: center;
       border-radius: 6px;
@@ -647,6 +647,16 @@
     @media (max-width: 600px) {
       .day-pill { padding: 0.32rem 0.65rem; font-size: 0.6rem; }
       .day-nav  { bottom: 1.2rem; }
+      .hero-arrow {
+        top: auto;
+        bottom: 5.5rem;
+        transform: none;
+        width: 44px;
+        height: 72px;
+        font-size: 1.4rem;
+      }
+      .hero-arrow:hover  { transform: scale(1.06); }
+      .hero-arrow:active { transform: scale(0.97); }
     }
 
     @media (max-width: 480px) {
@@ -1270,21 +1280,38 @@
         srcEl.textContent = src;
         srcEl.style.display = src ? 'block' : 'none';
 
-        place(e);
+        place(e, el);
       }
 
-      function place(e) {
-        // Force a layout pass so we get real dimensions
+      function place(e, el) {
+        var GAP    = 14;
+        var MARGIN = 10;
         popup.style.left = '0px';
         popup.style.top  = '0px';
         var pw = popup.offsetWidth;
         var ph = popup.offsetHeight;
         var vw = window.innerWidth;
         var vh = window.innerHeight;
-        var x  = e.clientX + 20;
-        var y  = e.clientY - ph - 20;
-        if (x + pw > vw - 12) x = e.clientX - pw - 20;
-        if (y < 8)            y = e.clientY + 24;
+        var cx, cy;
+        if (e && e.clientX !== undefined) {
+          cx = e.clientX;
+          cy = e.clientY;
+        } else if (el) {
+          var r = el.getBoundingClientRect();
+          cx = (r.left + r.right) / 2;
+          cy = r.top;
+        } else {
+          cx = vw / 2;
+          cy = vh / 2;
+        }
+        // Prefer above-right of cursor; flip to below if too close to top
+        var x = cx + GAP;
+        var y = cy - ph - GAP;
+        if (x + pw > vw - MARGIN) x = cx - pw - GAP;
+        if (y < MARGIN)           y = cy + GAP;
+        // Final clamp: keep fully inside viewport on all four edges
+        x = Math.max(MARGIN, Math.min(x, vw - pw - MARGIN));
+        y = Math.max(MARGIN, Math.min(y, vh - ph - MARGIN));
         popup.style.left = x + 'px';
         popup.style.top  = y + 'px';
       }
@@ -1296,12 +1323,13 @@
         }, 100);
       }
 
+      // Mouse
       document.addEventListener('mouseover', function (e) {
         var t = e.target.closest ? e.target.closest('.poem-original-tooltip') : null;
         if (t && t !== current) show(t, e);
       });
       document.addEventListener('mousemove', function (e) {
-        if (current) place(e);
+        if (current) place(e, current);
       });
       document.addEventListener('mouseout', function (e) {
         var t = e.target.closest ? e.target.closest('.poem-original-tooltip') : null;
@@ -1309,6 +1337,16 @@
         var rel = e.relatedTarget;
         if (!rel || !(rel.closest && rel.closest('.poem-original-tooltip'))) hide();
       });
+
+      // Touch: tap to toggle; tap outside to dismiss
+      document.addEventListener('touchstart', function (e) {
+        var t = e.target.closest ? e.target.closest('.poem-original-tooltip') : null;
+        if (t) {
+          if (t === current) { hide(); } else { show(t, null); }
+        } else if (current) {
+          hide();
+        }
+      }, { passive: true });
     }());
   </script>
 
