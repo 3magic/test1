@@ -25,6 +25,12 @@
       lines: ['"Adopt the pace of nature:', 'her secret is patience."'],
       author: 'Ralph Waldo Emerson',
       source: 'Journals · 1834'
+    },
+    music: {
+      src: 'days/2026-06-05/music.mp3',
+      title: 'Gymnopédie No. 3',
+      composer: 'Erik Satie',
+      year: '1888'
     }
   };
 }());

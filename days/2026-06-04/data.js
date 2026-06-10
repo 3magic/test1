@@ -25,6 +25,12 @@
       lines: ['"For I have learned', 'To look on nature, not as in the hour', 'Of thoughtless youth; but hearing oftentimes', 'The still, sad music of humanity."'],
       author: 'William Wordsworth',
       source: 'Tintern Abbey · 1798'
+    },
+    music: {
+      src: 'days/2026-06-04/music.mp3',
+      title: 'Gymnopédie No. 2',
+      composer: 'Erik Satie',
+      year: '1888'
     }
   };
 }());

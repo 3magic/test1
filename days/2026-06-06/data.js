@@ -26,6 +26,12 @@
       lines: ['"A thing of beauty is a joy for ever:', 'Its loveliness increases; it will never', 'Pass into nothingness."'],
       author: 'John Keats',
       source: 'Endymion · 1818'
+    },
+    music: {
+      src: 'days/2026-06-06/music.mp3',
+      title: 'Clair de Lune',
+      composer: 'Claude Debussy',
+      year: '1905'
     }
   };
 }());

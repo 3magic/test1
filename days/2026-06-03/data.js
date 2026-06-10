@@ -26,6 +26,12 @@
       lines: ['“To see a World in a Grain of Sand', 'And a Heaven in a Wild Flower,', 'Hold Infinity in the palm of your hand', 'And Eternity in an hour.”'],
       author: 'William Blake',
       source: 'Auguries of Innocence · c. 1803'
+    },
+    music: {
+      src: 'days/2026-06-03/music.mp3',
+      title: 'Gymnopédie No. 1',
+      composer: 'Erik Satie',
+      year: '1888'
     }
   };
 }());

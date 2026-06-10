@@ -40,6 +40,12 @@
       ],
       author: 'Henry David Thoreau',
       source: 'Walden · 1854'
+    },
+    music: {
+      src: 'days/2026-06-09/music.mp3',
+      title: 'Rêverie',
+      composer: 'Claude Debussy',
+      year: '1890'
     }
   };
 }());

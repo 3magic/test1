@@ -26,6 +26,12 @@
       lines: ['"You have power over your mind—', 'not outside events.', 'Realize this,', 'and you will find strength."'],
       author: 'Marcus Aurelius',
       source: 'Meditations · 2nd century'
+    },
+    music: {
+      src: 'days/2026-06-08/music.mp3',
+      title: 'Träumerei',
+      composer: 'Robert Schumann',
+      year: '1838'
     }
   };
 }());

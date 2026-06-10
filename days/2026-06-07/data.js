@@ -26,6 +26,12 @@
       lines: ['"I believe a leaf of grass is no less than', 'the journey-work of the stars."'],
       author: 'Walt Whitman',
       source: 'Song of Myself · 1855'
+    },
+    music: {
+      src: 'days/2026-06-07/music.mp3',
+      title: 'Nocturne Op. 9 No. 2',
+      composer: 'Frédéric Chopin',
+      year: '1832'
     }
   };
 }());
