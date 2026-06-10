@@ -664,10 +664,46 @@
       .poems-grid  { grid-template-columns: 1fr; gap: 3rem; }
     }
 
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.88);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.25rem 0.4rem;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-hamburger { color: var(--dark); }
+
     @media (max-width: 768px) {
       nav { padding: 1.25rem 1.5rem; }
       nav.scrolled { padding: 0.8rem 1.5rem; }
+      .nav-date { display: none; }
       .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+
+      nav.nav-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        position: fixed;
+        inset: 0;
+        background: rgba(10,8,4,0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 6rem 2rem 3rem;
+        z-index: 997;
+      }
+      nav.nav-open .nav-links a {
+        font-size: 1rem;
+        letter-spacing: 0.28em;
+        color: rgba(255,255,255,0.9);
+        text-shadow: none;
+      }
+      nav.nav-open .nav-hamburger { color: rgba(255,255,255,0.88); }
       #breathe { padding: 6rem 1.75rem; }
       #gallery, #words, #about { padding: 5rem 1.5rem; }
     }
@@ -783,6 +819,7 @@
       <li><a href="#words"   data-i18n="nav.poems">Poetry</a></li>
       <li><a href="#about"   data-i18n="nav.about">Belonging</a></li>
     </ul>
+    <button id="navHamburger" class="nav-hamburger" aria-label="Menu">&#9776;</button>
     <div class="lang-select" id="langSelect">
       <button class="lang-btn" id="langBtn">EN <span class="lang-caret">&#9662;</span></button>
       <ul class="lang-menu" id="langMenu"></ul>
@@ -1273,6 +1310,12 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    const hamburger = document.getElementById('navHamburger');
+    hamburger.addEventListener('click', () => nav.classList.toggle('nav-open'));
+    document.querySelectorAll('.nav-links a').forEach(a =>
+      a.addEventListener('click', () => nav.classList.remove('nav-open'))
+    );
 
     // ─── Fade-in on scroll ────────────────────────────────────────────────────
 
