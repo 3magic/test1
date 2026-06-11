@@ -1,0 +1,71 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Show deployment context
+        run: |
+          pwd
+          whoami
+          ls -la
+
+      - name: Deploy new release
+        run: |
+          set -euxo pipefail
+
+          APP_DIR="/var/www/momentofzen.art"
+          RELEASES_DIR="$APP_DIR/releases"
+          RELEASE_NAME="$(date +%Y%m%d-%H%M%S)"
+          RELEASE_DIR="$RELEASES_DIR/$RELEASE_NAME"
+          TMP_RELEASE_DIR="$RELEASE_DIR.tmp"
+
+          mkdir -p "$RELEASES_DIR"
+
+          # Remove stale temporary releases from failed previous deployments
+          find "$RELEASES_DIR" \
+            -maxdepth 1 \
+            -mindepth 1 \
+            -type d \
+            -name "*.tmp" \
+            -exec rm -rf {} +
+
+          # Create fresh temporary release directory
+          rm -rf "$TMP_RELEASE_DIR"
+          mkdir -p "$TMP_RELEASE_DIR"
+
+          # Copy checked-out repo into temporary release directory
+          rsync -av --delete \
+            --exclude ".git" \
+            --exclude ".github" \
+            ./ "$TMP_RELEASE_DIR/"
+
+          # Promote temporary release to final release
+          mv "$TMP_RELEASE_DIR" "$RELEASE_DIR"
+
+          # Point Nginx-served current symlink to new release
+          ln -sfn "$RELEASE_DIR" "$APP_DIR/current"
+
+          echo "Current release:"
+          readlink -f "$APP_DIR/current"
+
+          # Keep only latest 5 completed releases
+          find "$RELEASES_DIR" \
+            -maxdepth 1 \
+            -mindepth 1 \
+            -type d \
+            ! -name "*.tmp" \
+            | sort \
+            | head -n -5 \
+            | xargs -r rm -rf
+
+          echo "Deployment completed successfully."
