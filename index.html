@@ -227,6 +227,25 @@
       min-height: 1.6em;
     }
 
+    /* Hero intro: typing cursor */
+    .hero-sub.hero-typing::after {
+      content: '|';
+      font-weight: 300;
+      animation: heroBlink 0.65s step-end infinite;
+    }
+    @keyframes heroBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* Hero intro: after animation, the 3 lines stay hidden */
+    #home.hero-intro-done .hero-eyebrow,
+    #home.hero-intro-done .hero-title,
+    #home.hero-intro-done .hero-sub {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
     .hero-cta {
       display: inline-block;
       font-family: 'Jost', sans-serif;
@@ -1199,8 +1218,10 @@
       }, 480);
 
       // Update hero subtitle (day translation → pool translation → English)
-      document.getElementById('heroSub').textContent =
-        (trans && trans.subtitle) || c.hero.subtitle;
+      if (!_heroIntroPlaying) {
+        document.getElementById('heroSub').textContent =
+          (trans && trans.subtitle) || c.hero.subtitle;
+      }
 
       // Update quote (with tooltip on translated non-native quotes)
       const quoteAuthor = (trans && trans.quoteAuthor) || c.quote.author;
@@ -1315,6 +1336,145 @@
       if (e.key === 'ArrowRight' && activeIdx > 0) showDay(activeIdx - 1);
     });
 
+    // ─── Hero intro sequence ──────────────────────────────────────────────────
+    var _heroIntroPlaying = false;
+    var _heroCTAFixed     = false;
+
+    function startHeroIntro() {
+      var eyebrow = document.querySelector('.hero-eyebrow');
+      var title   = document.querySelector('.hero-title');
+      var sub     = document.getElementById('heroSub');
+      var cta     = document.querySelector('.hero-cta');
+      var subText = sub.textContent || '';
+
+      _heroIntroPlaying = true;
+
+      // Hide all four immediately
+      [eyebrow, title, sub, cta].forEach(function(el) {
+        el.style.transition = 'none';
+        el.style.opacity    = '0';
+      });
+      sub.textContent = '';
+
+      var timers = [];
+      var typeInterval = null;
+
+      function finish() {
+        if (_heroCTAFixed) return;  // Already locked — never move or hide again
+        _heroIntroPlaying = false;
+        timers.forEach(clearTimeout);
+        timers = [];
+        clearInterval(typeInterval);
+        typeInterval = null;
+        sub.classList.remove('hero-typing');
+
+        // Ensure CTA is visible in case intro was skipped before Phase 4
+        cta.style.transition = 'opacity 0.4s ease';
+        cta.style.opacity    = '1';
+
+        // Fade out the 3 text lines; keep CTA visible
+        [eyebrow, title, sub].forEach(function(el) {
+          el.style.transition = 'opacity 1.3s ease';
+          el.style.opacity    = '0';
+        });
+
+        setTimeout(function() {
+          document.getElementById('home').classList.add('hero-intro-done');
+          [eyebrow, title, sub].forEach(function(el) {
+            el.style.transition = '';
+            el.style.opacity    = '';
+          });
+
+          // Slide CTA to bottom of viewport, mirroring nav top-padding as bottom margin
+          var rect          = cta.getBoundingClientRect();
+          var navPad        = parseFloat(window.getComputedStyle(document.getElementById('main-nav')).paddingTop);
+          var targetCenterY = window.innerHeight - navPad - rect.height / 2;
+          var deltaY        = targetCenterY - (rect.top + rect.height / 2);
+          cta.style.transition = 'transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          cta.style.transform  = 'translateY(' + deltaY + 'px)';
+
+          // After animation completes, switch to position:fixed so the CTA
+          // stays locked to the viewport bottom regardless of page scroll.
+          // After animation ends, pin CTA as fixed at its exact rendered position.
+          // Must move to body first: hero-content's fadeUp animation leaves
+          // transform:translateY(0) which makes it a containing block for fixed children.
+          setTimeout(function() {
+            var fr = cta.getBoundingClientRect();
+            cta.style.transition = 'none';
+            document.body.appendChild(cta);
+            cta.style.position   = 'fixed';
+            cta.style.top        = fr.top + 'px';
+            cta.style.left       = fr.left + 'px';
+            cta.style.width      = fr.width + 'px';
+            cta.style.transform  = 'none';
+            cta.style.opacity    = '1';
+            cta.style.zIndex     = '998';
+            _heroCTAFixed = true;
+            setTimeout(function() { cta.style.transition = ''; }, 50);
+          }, 1500);
+        }, 1400);
+      }
+
+      // Arrow clicks skip the intro
+      document.getElementById('dayPrev').addEventListener('click', finish);
+      document.getElementById('dayNext').addEventListener('click', finish);
+
+      function beginSequence() {
+        // Phase 1 — eyebrow fades in
+        timers.push(setTimeout(function() {
+          eyebrow.style.transition = 'opacity 2s ease';
+          eyebrow.style.opacity    = '1';
+
+          // Phase 2 — title fades in
+          timers.push(setTimeout(function() {
+            title.style.transition = 'opacity 2.2s ease';
+            title.style.opacity    = '1';
+
+            // Phase 3 — subtitle types in
+            timers.push(setTimeout(function() {
+              sub.style.transition = 'none';
+              sub.style.opacity    = '1';
+              sub.classList.add('hero-typing');
+              var i = 0;
+              typeInterval = setInterval(function() {
+                i++;
+                sub.textContent = subText.slice(0, i);
+                if (i >= subText.length) {
+                  clearInterval(typeInterval);
+                  typeInterval = null;
+                  sub.classList.remove('hero-typing');
+
+                  // Phase 4 — CTA fades in
+                  timers.push(setTimeout(function() {
+                    cta.style.transition = 'opacity 1.6s ease';
+                    cta.style.opacity    = '1';
+
+                    // Phase 5 — hold 8s then fade out
+                    timers.push(setTimeout(finish, 8000));
+                  }, 400));
+                }
+              }, 48);
+            }, 2600));
+          }, 2400));
+        }, 600));
+      }
+
+      // Start music first, then begin visual sequence
+      if (!bgAudio.paused) {
+        beginSequence();
+      } else if (!userPaused && bgAudio.src) {
+        bgAudio.play().then(function() {
+          musicBtn.classList.add('playing');
+          musicBtn.title = 'Pause background music';
+          beginSequence();
+        }).catch(function() {
+          beginSequence(); // autoplay blocked — start visuals anyway
+        });
+      } else {
+        beginSequence();
+      }
+    }
+
     // ─── Init ─────────────────────────────────────────────────────────────────
 
     // 1. Load date index → 2. Preload all available day data → 3. Render
@@ -1325,6 +1485,7 @@
       renderContent(0);
       updateArrows();
       if (window.I18N) window.I18N.init();
+      setTimeout(startHeroIntro, 400);
     });
 
     // ─── Nav scroll ───────────────────────────────────────────────────────────
