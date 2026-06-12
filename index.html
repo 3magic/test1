@@ -1411,6 +1411,16 @@
             cta.style.zIndex     = '998';
             _heroCTAFixed = true;
             setTimeout(function() { cta.style.transition = ''; }, 50);
+
+            // Hide the button the moment the hero image bottom scrolls past it
+            var ctaTopPx    = fr.top;
+            var heroSection = document.getElementById('home');
+            window.addEventListener('scroll', function() {
+              var heroBottom = heroSection.getBoundingClientRect().bottom;
+              var show = heroBottom > ctaTopPx;
+              cta.style.opacity      = show ? '1' : '0';
+              cta.style.pointerEvents = show ? '' : 'none';
+            }, { passive: true });
           }, 1500);
         }, 1400);
       }
