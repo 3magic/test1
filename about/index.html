@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The philosophy of Moment of Zen — calm, presence, and perspective in the AI era.">
+  <title>Our Philosophy — Moment of Zen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --warm-white: #f8f5ef;
+      --dark:   #1c1b14;
+      --medium: #46433a;
+      --muted:  #7a7568;
+      --gold:   #b8924e;
+      --gold-light: #d4ac6a;
+      --border: rgba(28, 27, 20, 0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--dark);
+      font-weight: 300;
+      line-height: 1.95;
+    }
+    em { font-style: italic; }
+    a { color: inherit; }
+
+    /* ── Home button (top-right; same icon/style as the magazine landing page) ── */
+    .home-btn {
+      position: fixed; top: 1.4rem; right: 1.6rem; z-index: 999;
+      width: 2.9rem; height: 2.9rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid rgba(184,146,78,0.35);
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .home-btn:hover { background: rgba(184,146,78,0.16); border-color: var(--gold-light); transform: translateY(-2px); }
+    .home-btn svg { width: 1.3rem; height: 1.3rem; fill: var(--gold-light); display: block; }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 7rem; text-align: center; }
+    .eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .lede {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.5; color: var(--dark);
+      margin: 1.5rem 0 0;
+    }
+    .gold-rule { width: 40px; height: 1px; background: var(--gold); margin: 2.5rem auto; }
+    .wrap p.body {
+      font-size: 1.12rem; color: var(--medium); margin-bottom: 1.5rem; text-align: left;
+    }
+    .note {
+      margin-top: 3rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300;
+      letter-spacing: 0.25em; color: var(--medium);
+    }
+    .footer-powered { margin-top: 0.8rem; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--muted); }
+    .footer-powered a { color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <a class="home-btn" href="/" data-link="" aria-label="Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 1.5 12h3v9h6v-6h3v6h6v-9h3z"/></svg>
+  </a>
+
+  <main class="wrap">
+    <span class="eyebrow">Our Philosophy</span>
+    <h1>Stillness in the AI Era</h1>
+    <p class="lede">In an age of acceleration, we make room for stillness.</p>
+    <div class="gold-rule"></div>
+    <p class="body">
+      Moment of Zen exists to offer a counterweight to the AI era — not in opposition to it, but in
+      balance with it. As machines grow faster and the world louder, the case for calm, presence,
+      and perspective has never been clearer.
+    </p>
+    <p class="body">
+      We craft sacred objects and curate daily beauty for the same reason: to invite you to pause,
+      breathe, and reflect on what a meaningful life looks like when so much can be automated. The
+      Buddha on your desk and the quote on your screen ask the same quiet question —
+      <em>what, in all of this, truly matters?</em>
+    </p>
+    <p class="body">That question is the heart of everything we make.</p>
+    <p class="note">A fuller account of our philosophy is coming soon.</p>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Moment of Zen</span>
+    <p class="footer-powered">Powered by <a href="https://3logic.ai">3logic.ai</a></p>
+  </footer>
+
+  <script src="../js/links.js"></script>
+
+</body>
+</html>
