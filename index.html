@@ -369,24 +369,41 @@
     .car-credit a { text-decoration: none; }
     .car-credit a:hover { color: var(--gold-light); }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      .slide { padding: 8vh 1.4rem 20vh; }
-      .hero-figure img { width: 150px; }
-      .hero-figure::before { width: 232px; height: 232px; }
-      .hero-figure::after  { width: 270px; height: 270px; }
-      .mag-features { gap: 1.4rem; }
-      .car-arrow { font-size: 1.6rem; width: 2.4rem; }
-      .car-prev { left: 0.3rem; }
-      .car-next { right: 0.3rem; }
-      .slide-cta { bottom: 12vh; }
-    }
+    /* ── Responsive ──
+       NOTE: the max-width (phone) block is intentionally placed AFTER the
+       max-height block so it wins on small phones that match both. */
     @media (max-height: 700px) {
       .slide { padding-top: 7vh; }
       .hero-figure { margin-bottom: 1.4rem; }
       .hero-figure img { width: 140px; }
       .hero-figure::before { width: 220px; height: 220px; }
       .hero-figure::after  { width: 256px; height: 256px; }
+    }
+    @media (max-width: 768px) {
+      /* keep content clear of the fixed logo, and reserve room for the dots/credit */
+      .slide { padding: max(5rem, 8vh) 1.4rem 9vh; }
+
+      /* CTA flows beneath the copy, so the subtitle is always above the button */
+      .slide-cta { position: static; left: auto; bottom: auto; transform: none; margin-top: 1.7rem; }
+      .slide-cta:hover  { transform: translateY(-3px); }
+      .slide-cta:active { transform: scale(0.96); }
+
+      /* trim the bumped-up type + figure so the stack fits without overflowing */
+      .eyebrow { font-size: 0.78rem; margin-bottom: 1rem; }
+      .slide-heading,
+      .slide-buddha .slide-heading { font-size: clamp(1.9rem, 7.5vw, 2.6rem); margin-bottom: 0.9rem; }
+      .hero-rotator { font-size: clamp(1.05rem, 4.5vw, 1.4rem); margin-bottom: 1rem; }
+      .slide-sub { font-size: 1.02rem; }
+
+      .hero-figure { margin-bottom: 1.2rem; }
+      .hero-figure img { width: 112px; }
+      .hero-figure::before { width: 180px; height: 180px; }
+      .hero-figure::after  { width: 212px; height: 212px; }
+
+      .mag-features { gap: 1.4rem; }
+      .car-arrow { font-size: 1.6rem; width: 2.4rem; }
+      .car-prev { left: 0.3rem; }
+      .car-next { right: 0.3rem; }
     }
   </style>
 </head>
